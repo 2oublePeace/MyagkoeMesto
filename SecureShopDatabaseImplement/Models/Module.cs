@@ -1,0 +1,18 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace SecureShopDatabaseImplement.Models
+{
+    public class Module
+    {
+        public int Id { get; set; }
+        [Required]
+        public string ModuleName { get; set; }
+        [Required]
+        public decimal Price { get; set; }
+        [ForeignKey("ModuleId")]
+        public virtual List<ModuleMaterial> ModuleMaterial { get; set; }
+    }
+}
+
