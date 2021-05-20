@@ -1,18 +1,19 @@
 ﻿using MebelBusinessLogic.BindingModels;
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
+using MebelDatabaseImplement.Models;
 using SecureShopDatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SecureShopDatabaseImplement.Implements
+namespace MebelDatabaseImplement.Implements
 {
     public class MaterialStorage : IMaterialStorage
     {
         public List<MaterialViewModel> GetFullList()
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 return context.Materials
                 .Select(rec => new MaterialViewModel
@@ -29,7 +30,7 @@ namespace SecureShopDatabaseImplement.Implements
             {
                 return null;
             }
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 return context.Materials
                 .Where(rec => rec.MaterialName.Contains(model.MaterialName))
@@ -47,7 +48,7 @@ namespace SecureShopDatabaseImplement.Implements
             {
                 return null;
             }
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 var component = context.Materials
                 .FirstOrDefault(rec => rec.MaterialName == model.MaterialName ||
@@ -63,7 +64,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Insert(MaterialBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 context.Materials.Add(CreateModel(model, new Material()));
                 context.SaveChanges();
@@ -71,7 +72,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Update(MaterialBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 var element = context.Materials.FirstOrDefault(rec => rec.Id ==
                model.Id);
@@ -85,7 +86,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Delete(MaterialBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 Material element = context.Materials.FirstOrDefault(rec => rec.Id ==
                model.Id);

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SecureShopDatabaseImplement.Models
+namespace MebelDatabaseImplement.Models
 {
     public class Module
     {

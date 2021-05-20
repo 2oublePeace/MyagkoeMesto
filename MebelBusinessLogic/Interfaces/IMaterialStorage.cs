@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MebelBusinessLogic.BindingModels;
+using MebelBusinessLogic.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using MebelBusinessLogic.BindingModels;
-using MebelBusinessLogic.ViewModels;
 
 namespace MebelBusinessLogic.Interfaces
 {

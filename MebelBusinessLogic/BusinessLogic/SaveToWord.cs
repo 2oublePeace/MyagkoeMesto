@@ -1,7 +1,7 @@
-﻿using MebelBusinessLogic.HelperModels;
-using DocumentFormat.OpenXml;
+﻿using DocumentFormat.OpenXml;
 using DocumentFormat.OpenXml.Packaging;
 using DocumentFormat.OpenXml.Wordprocessing;
+using MebelBusinessLogic.HelperModels;
 using System.Collections.Generic;
 
 namespace MebelBusinessLogic.BusinessLogics

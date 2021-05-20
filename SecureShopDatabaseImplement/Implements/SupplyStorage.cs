@@ -7,13 +7,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SecureShopDatabaseImplement.Implements
+namespace MebelDatabaseImplement.Implements
 {
     public class SupplyStorage : ISupplyStorage
     {
         public List<SupplyViewModel> GetFullList()
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 return context.Orders
                     .Select(rec => new SupplyViewModel
@@ -37,7 +37,7 @@ namespace SecureShopDatabaseImplement.Implements
                 return null;
             }
 
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 return context.Orders
                     .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
@@ -62,7 +62,7 @@ namespace SecureShopDatabaseImplement.Implements
                 return null;
             }
 
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 var supply = context.Orders
                     .FirstOrDefault(rec => rec.Id == model.Id);
@@ -84,7 +84,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Insert(SupplyBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 context.Orders.Add(CreateModel(model, new Supply()));
                 context.SaveChanges();
@@ -92,7 +92,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Update(SupplyBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 var supply = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
 
@@ -107,7 +107,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Delete(SupplyBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 var supply = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
 

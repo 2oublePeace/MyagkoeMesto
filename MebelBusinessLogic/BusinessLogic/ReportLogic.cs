@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MebelBusinessLogic.BindingModels;
+﻿using MebelBusinessLogic.BindingModels;
+using MebelBusinessLogic.BusinessLogic;
 using MebelBusinessLogic.HelperModels;
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Linq;
-using MebelBusinessLogic.BusinessLogic;
+using System.Text;
 
 namespace MebelBusinessLogic.BusinessLogics
 {
@@ -25,7 +25,7 @@ namespace MebelBusinessLogic.BusinessLogics
 		/// <returns></returns>
 		public List<ReportModuleMaterialViewModel> GetModuleMaterial()
 		{
-			var materials = _materialStorage.GetFullList(); 
+			var materials = _materialStorage.GetFullList();
 			var modules = _moduleStorage.GetFullList();
 			var list = new List<ReportModuleMaterialViewModel>();
 

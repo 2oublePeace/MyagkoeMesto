@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using Unity;
 using MebelBusinessLogic.BusinessLogics;
 using MebelBusinessLogic.Interfaces;
-using SecureShopDatabaseImplement.Implements;
+using MebelDatabaseImplement.Implements;
 using Unity.Lifetime;
 
 namespace SecureShopView

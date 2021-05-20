@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using SecureShopDatabaseImplement.Models;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SecureShopDatabaseImplement.Models
+namespace MebelDatabaseImplement.Models
 {
 	/// <summary>
 	/// Компонент, требуемый для изготовления изделия

@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MebelCustomerView"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Главное окно" Height="450" Width="650">
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Справочники">
+                <MenuItem Header="Материалы" Click="btnMaterials_Click"></MenuItem>
+                <MenuItem Header="Модули" ></MenuItem>
+                <Separator />
+                <MenuItem Header="Exit" ></MenuItem>
+            </MenuItem>
+            <MenuItem Header="Отчеты" ></MenuItem>
+        </Menu>
+        <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="8" Source="Resources\logo.png" Width="350"/>
     </Grid>
 </Window>

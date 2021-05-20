@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MebelBusinessLogic.BindingModels;
+﻿using MebelBusinessLogic.BindingModels;
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace MebelBusinessLogic.BusinessLogics
 {
@@ -22,7 +22,7 @@ namespace MebelBusinessLogic.BusinessLogics
 			}
 			if (model.Id.HasValue)
 			{
-				return new List<MaterialViewModel> { _materialStorage.GetElement(model)};
+				return new List<MaterialViewModel> { _materialStorage.GetElement(model) };
 			}
 			return _materialStorage.GetFilteredList(model);
 		}
@@ -50,7 +50,7 @@ namespace MebelBusinessLogic.BusinessLogics
 			var element = _materialStorage.GetElement(new MaterialBindingModel { Id = model.Id });
 			if (element == null)
 			{
-			throw new Exception("Элемент не найден");
+				throw new Exception("Элемент не найден");
 			}
 			_materialStorage.Delete(model);
 		}

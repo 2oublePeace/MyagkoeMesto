@@ -1,8 +1,8 @@
-﻿using System;
+﻿using MebelBusinessLogic.Enums;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
-using MebelBusinessLogic.Enums;
 
 namespace MebelBusinessLogic.ViewModels
 {

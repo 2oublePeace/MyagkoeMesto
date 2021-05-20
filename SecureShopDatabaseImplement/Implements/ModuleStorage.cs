@@ -1,20 +1,20 @@
 ﻿using MebelBusinessLogic.BindingModels;
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
-using SecureShopDatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MebelDatabaseImplement.Models;
 
-namespace SecureShopDatabaseImplement.Implements
+namespace MebelDatabaseImplement.Implements
 {
     public class ModuleStorage : IModuleStorage
     {
         public List<ModuleViewModel> GetFullList()
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 return context.Modules
                     .Include(rec => rec.ModuleMaterial)
@@ -40,7 +40,7 @@ namespace SecureShopDatabaseImplement.Implements
                 return null;
             }
 
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 return context.Modules
                     .Include(rec => rec.ModuleMaterial)
@@ -67,7 +67,7 @@ namespace SecureShopDatabaseImplement.Implements
                 return null;
             }
 
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 var module = context.Modules
                     .Include(rec => rec.ModuleMaterial)
@@ -91,7 +91,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Insert(ModuleBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 using (var transaction = context.Database.BeginTransaction())
                 {
@@ -112,7 +112,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Update(ModuleBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 using (var transaction = context.Database.BeginTransaction())
                 {
@@ -140,7 +140,7 @@ namespace SecureShopDatabaseImplement.Implements
         }
         public void Delete(ModuleBindingModel model)
         {
-            using (var context = new MebelShopDatabase())
+            using (var context = new MebelDatabase())
             {
                 var Material = context.Modules.FirstOrDefault(rec => rec.Id == model.Id);
 
@@ -153,7 +153,7 @@ namespace SecureShopDatabaseImplement.Implements
                 context.SaveChanges();
             }
         }
-        private Module CreateModel(ModuleBindingModel model, Module module, MebelShopDatabase context)
+        private Module CreateModel(ModuleBindingModel model, Module module, MebelDatabase context)
         {
             module.ModuleName = model.ModuleName;
             module.Price = model.Price;

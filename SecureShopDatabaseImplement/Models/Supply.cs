@@ -1,4 +1,5 @@
 ﻿using MebelBusinessLogic.Enums;
+using MebelDatabaseImplement.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
 

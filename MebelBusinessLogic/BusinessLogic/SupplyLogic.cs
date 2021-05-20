@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using MebelBusinessLogic.BindingModels;
+﻿using MebelBusinessLogic.BindingModels;
 using MebelBusinessLogic.Enums;
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
+using System;
+using System.Collections.Generic;
+using System.Text;
 
 namespace MebelBusinessLogic.BusinessLogics
 {

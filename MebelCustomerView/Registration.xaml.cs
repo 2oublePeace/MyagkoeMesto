@@ -1,0 +1,65 @@
+﻿using System;
+using System.Windows;
+using Unity;
+using MebelBusinessLogic.BindnigModels;
+using MebelBusinessLogic.BusinessLogic;
+
+namespace MebelCustomerView
+{
+	/// <summary>
+	/// Логика взаимодействия для Registration.xaml
+	/// </summary>
+	public partial class Registration : Window
+	{
+        [Dependency]
+        public new IUnityContainer Container { get; set; }
+        public int Id { set { id = value; } }
+        private int? id;
+        private readonly CustomerLogic logic;
+        public Registration(CustomerLogic logic)
+        {
+            InitializeComponent();
+            this.logic = logic;
+        }
+
+        private void btnRegister_Click(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(tbUserName.Text))
+            {
+                MessageBox.Show("Введите имя пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrEmpty(tbPassword.Text))
+            {
+                MessageBox.Show("Выберите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            try
+            {
+                logic.CreateOrUpdate(new CustomerBindingModel
+                {
+                    Id = id,
+                    FullName = tbUserName.Text,
+                    Password = tbPassword.Text,
+                });
+                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                var window = Container.Resolve<WelcomeWindow>();
+                window.Show();
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+               MessageBoxImage.Error);
+            }
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<WelcomeWindow>();
+            window.Show();
+            Close();
+        }
+    }
+}

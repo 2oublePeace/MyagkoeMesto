@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace SecureShopDatabaseImplement.Models
+namespace MebelDatabaseImplement.Models
 {
 	/// <summary>
 	/// Сколько компонентов, требуется при изготовлении изделия

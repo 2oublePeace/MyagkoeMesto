@@ -335,7 +335,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MebelBusinessLogic\MebelBusinessLogic.csproj">
-      <Project>{cfedbfd7-349d-40d6-a817-c8483c7ced56}</Project>
+      <Project>{525e2016-5251-4813-b36e-8313790e5c82}</Project>
       <Name>MebelBusinessLogic</Name>
     </ProjectReference>
     <ProjectReference Include="..\SecureShopDatabaseImplement\MebelDatabaseImplement.csproj">

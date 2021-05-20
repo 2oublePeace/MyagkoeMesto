@@ -1,7 +1,7 @@
-﻿using System;
+﻿using MebelBusinessLogic.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using MebelBusinessLogic.ViewModels;
 
 namespace MebelBusinessLogic.HelperModels
 {
