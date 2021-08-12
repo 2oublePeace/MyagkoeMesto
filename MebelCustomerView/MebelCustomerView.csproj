@@ -158,36 +158,50 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AddGarniture.xaml.cs">
-      <DependentUpon>AddGarniture.xaml</DependentUpon>
+    <Compile Include="CreateGarnitureWindow.xaml.cs">
+      <DependentUpon>CreateGarnitureWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AddMebel.xaml.cs">
-      <DependentUpon>AddMebel.xaml</DependentUpon>
+    <Compile Include="CreateMaterialWindow.xaml.cs">
+      <DependentUpon>CreateMaterialWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Garniture.xaml.cs">
-      <DependentUpon>Garniture.xaml</DependentUpon>
+    <Compile Include="MaterialsWindow.xaml.cs">
+      <DependentUpon>MaterialsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="СreateMebelWindow.xaml.cs">
+      <DependentUpon>СreateMebelWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GarnitureWindow.xaml.cs">
+      <DependentUpon>GarnitureWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Mebel.xaml.cs">
-      <DependentUpon>Mebel.xaml</DependentUpon>
+    <Compile Include="MebelWindow.xaml.cs">
+      <DependentUpon>MebelWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Registration.xaml.cs">
-      <DependentUpon>Registration.xaml</DependentUpon>
+    <Compile Include="RegistrationWindow.xaml.cs">
+      <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WelcomeWindow.xaml.cs">
-      <DependentUpon>WelcomeWindow.xaml</DependentUpon>
+    <Compile Include="EntryWindow.xaml.cs">
+      <DependentUpon>EntryWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="AddGarniture.xaml">
+    <Page Include="CreateGarnitureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="AddMebel.xaml">
+    <Page Include="CreateMaterialWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Enter.xaml">
+    <Page Include="MaterialsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="СreateMebelWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LoginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -195,10 +209,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Enter.xaml.cs">
-      <DependentUpon>Enter.xaml</DependentUpon>
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Garniture.xaml">
+    <Page Include="GarnitureWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -206,15 +220,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Mebel.xaml">
+    <Page Include="MebelWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Registration.xaml">
+    <Page Include="RegistrationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="WelcomeWindow.xaml">
+    <Page Include="EntryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -251,8 +265,8 @@
       <Project>{525e2016-5251-4813-b36e-8313790e5c82}</Project>
       <Name>MebelBusinessLogic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SecureShopDatabaseImplement\MebelDatabaseImplement.csproj">
-      <Project>{9cd38d58-6e2c-4af0-86c1-c6bef5a948c4}</Project>
+    <ProjectReference Include="..\MebelDatabaseImplement\MebelDatabaseImplement.csproj">
+      <Project>{df8acad6-e3aa-41d9-bacd-cbafcb3e6a67}</Project>
       <Name>MebelDatabaseImplement</Name>
     </ProjectReference>
   </ItemGroup>

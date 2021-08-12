@@ -1,30 +1,29 @@
-﻿using MebelBusinessLogic.BindingModels;
+﻿using MebelBusinessLogic.BindnigModels;
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
 using MebelDatabaseImplement.Models;
-using SecureShopDatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace MebelDatabaseImplement.Implements
 {
-    public class MaterialStorage : IMaterialStorage
-    {
-        public List<MaterialViewModel> GetFullList()
+	public class GarnitureStorage : IGarnitureStorage
+	{
+        public List<GarnitureViewModel> GetFullList()
         {
             using (var context = new MebelDatabase())
             {
-                return context.Materials
-                .Select(rec => new MaterialViewModel
+                return context.Garniture
+                .Select(rec => new GarnitureViewModel
                 {
                     Id = rec.Id,
-                    MaterialName = rec.MaterialName
+                    Name = rec.Name
                 })
                .ToList();
             }
         }
-        public List<MaterialViewModel> GetFilteredList(MaterialBindingModel model)
+        public List<GarnitureViewModel> GetFilteredList(GarnitureBindingModel model)
         {
             if (model == null)
             {
@@ -32,17 +31,17 @@ namespace MebelDatabaseImplement.Implements
             }
             using (var context = new MebelDatabase())
             {
-                return context.Materials
-                .Where(rec => rec.MaterialName.Contains(model.MaterialName))
-               .Select(rec => new MaterialViewModel
-               {
-                   Id = rec.Id,
-                   MaterialName = rec.MaterialName
-               })
+                return context.Garniture
+                .Where(rec => rec.Name.Contains(model.Name))
+                .Select(rec => new GarnitureViewModel
+                {
+                    Id = rec.Id,
+                    Name = rec.Name
+                })
                 .ToList();
             }
         }
-        public MaterialViewModel GetElement(MaterialBindingModel model)
+        public GarnitureViewModel GetElement(GarnitureBindingModel model)
         {
             if (model == null)
             {
@@ -50,49 +49,46 @@ namespace MebelDatabaseImplement.Implements
             }
             using (var context = new MebelDatabase())
             {
-                var component = context.Materials
-                .FirstOrDefault(rec => rec.MaterialName == model.MaterialName ||
-               rec.Id == model.Id);
+                var component = context.Garniture
+                .FirstOrDefault(rec => rec.Name == model.Name || rec.Id == model.Id);
                 return component != null ?
-                new MaterialViewModel
+                new GarnitureViewModel
                 {
                     Id = component.Id,
-                    MaterialName = component.MaterialName
+                    Name = component.Name
                 } :
-               null;
+                null;
             }
         }
-        public void Insert(MaterialBindingModel model)
+        public void Insert(GarnitureBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                context.Materials.Add(CreateModel(model, new Material()));
+                context.Garniture.Add(CreateModel(model, new Garniture()));
                 context.SaveChanges();
             }
         }
-        public void Update(MaterialBindingModel model)
+        public void Update(GarnitureBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                var element = context.Materials.FirstOrDefault(rec => rec.Id ==
-               model.Id);
+                var element = context.Garniture.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
-            {
+                {
                     throw new Exception("Элемент не найден");
                 }
                 CreateModel(model, element);
                 context.SaveChanges();
             }
         }
-        public void Delete(MaterialBindingModel model)
+        public void Delete(GarnitureBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                Material element = context.Materials.FirstOrDefault(rec => rec.Id ==
-               model.Id);
+                Garniture element = context.Garniture.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element != null)
                 {
-                    context.Materials.Remove(element);
+                    context.Garniture.Remove(element);
                     context.SaveChanges();
                 }
                 else
@@ -101,10 +97,10 @@ namespace MebelDatabaseImplement.Implements
                 }
             }
         }
-        private Material CreateModel(MaterialBindingModel model, Material material)
+        private Garniture CreateModel(GarnitureBindingModel model, Garniture garniture)
         {
-            material.MaterialName = model.MaterialName;
-            return material;
+            garniture.Name = model.Name;
+            return garniture;
         }
-    }
+	}
 }

@@ -30,7 +30,7 @@ namespace MebelBusinessLogic.BusinessLogics
 		{
 			var element = _materialStorage.GetElement(new MaterialBindingModel
 			{
-				MaterialName = model.MaterialName
+				Name = model.Name
 			});
 			if (element != null && element.Id != model.Id)
 			{

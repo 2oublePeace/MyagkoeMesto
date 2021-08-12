@@ -16,15 +16,17 @@ namespace MebelDatabaseImplement
 		{
 			if (optionsBuilder.IsConfigured == false)
 			{
-				optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=NameShopDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
+				optionsBuilder.UseSqlServer(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=MyagkoeMestoDatabase;Integrated Security=True;MultipleActiveResultSets=True;");
 			}
 			base.OnConfiguring(optionsBuilder);
 		}
 
+		public virtual DbSet<Customer> Customers { set; get; }
+		public virtual DbSet<Mebel> Mebel { set; get; }
+		public virtual DbSet<Garniture> Garniture { set; get; }
+		public virtual DbSet<Supply> Orders { set; get; }
 		public virtual DbSet<Material> Materials { set; get; }
 		public virtual DbSet<Module> Modules { set; get; }
 		public virtual DbSet<ModuleMaterial> ModuleMaterials { set; get; }
-		public virtual DbSet<Supply> Orders { set; get; }
-		public virtual DbSet<Customer> Customers { set; get; }
 	}
 }

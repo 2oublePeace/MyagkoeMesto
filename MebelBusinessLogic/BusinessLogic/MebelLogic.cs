@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MebelBusinessLogic.BusinessLogic
+namespace MebelBusinessLogic.BusinessLogics
 {
 	public class MebelLogic
 	{

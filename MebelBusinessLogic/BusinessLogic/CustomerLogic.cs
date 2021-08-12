@@ -3,9 +3,8 @@ using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace MebelBusinessLogic.BusinessLogic
+namespace MebelBusinessLogic.BusinessLogics
 {
     public class CustomerLogic
     {
@@ -57,7 +56,7 @@ namespace MebelBusinessLogic.BusinessLogic
             });
             if (customer == null)
             {
-                throw new Exception("Доктор не найден");
+                throw new Exception("Заказчик не найден");
             }
             _customerStorage.Delete(model);
         }

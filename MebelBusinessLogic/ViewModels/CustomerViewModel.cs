@@ -8,7 +8,7 @@ namespace MebelBusinessLogic.ViewModels
 	public class CustomerViewModel
 	{
         public int Id { get; set; }
-        [DisplayName("Имя доктора")]
+        [DisplayName("Имя заказчика")]
         public string FullName { get; set; }
         public string Password { get; set; }
     }

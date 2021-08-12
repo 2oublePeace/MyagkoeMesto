@@ -41,10 +41,10 @@ namespace MebelDatabaseImplement.Implements
             }
             using (var context = new MebelDatabase())
             {
-                var doctor = context.Customers
+                var customer = context.Customers
                 .FirstOrDefault(rec => rec.Id == model.Id || rec.FullName == model.FullName);
-                return doctor != null ?
-                CreateModel(doctor) : null;
+                return customer != null ?
+                CreateModel(customer) : null;
             }
         }
 
@@ -64,7 +64,7 @@ namespace MebelDatabaseImplement.Implements
                 var element = context.Customers.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
-                    throw new Exception("Доктор не найден");
+                    throw new Exception("Заказчик не найден");
                 }
                 CreateModel(model, element);
                 context.SaveChanges();
@@ -83,7 +83,7 @@ namespace MebelDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Доктор не найден");
+                    throw new Exception("Заказчик не найден");
                 }
             }
         }

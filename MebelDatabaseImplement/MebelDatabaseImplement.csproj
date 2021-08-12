@@ -18,11 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MebelBusinessLogic\MebelBusinessLogic.csproj" />
-    <ProjectReference Include="..\SecureShopBusinessLogic\MebelBusinessLogic.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>

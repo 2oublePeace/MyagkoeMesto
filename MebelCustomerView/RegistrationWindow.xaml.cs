@@ -2,7 +2,7 @@
 using System.Windows;
 using Unity;
 using MebelBusinessLogic.BindnigModels;
-using MebelBusinessLogic.BusinessLogic;
+using MebelBusinessLogic.BusinessLogics;
 
 namespace MebelCustomerView
 {

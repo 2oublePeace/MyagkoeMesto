@@ -13,8 +13,8 @@
         </Grid.RowDefinitions>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="Справочники">
-                <MenuItem Header="Материалы" Click="btnMaterials_Click"></MenuItem>
-                <MenuItem Header="Модули" ></MenuItem>
+                <MenuItem Header="Мебель" Click="btnMebel_Click"></MenuItem>
+                <MenuItem Header="Гарнитуры" Click="btnGarniture_Click"></MenuItem>
                 <Separator />
                 <MenuItem Header="Exit" ></MenuItem>
             </MenuItem>

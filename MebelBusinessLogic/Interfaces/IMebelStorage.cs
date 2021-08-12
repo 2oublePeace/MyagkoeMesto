@@ -1,8 +1,6 @@
 ﻿using MebelBusinessLogic.BindnigModels;
 using MebelBusinessLogic.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace MebelBusinessLogic.Interfaces
 {
