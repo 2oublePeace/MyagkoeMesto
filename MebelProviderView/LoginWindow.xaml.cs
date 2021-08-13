@@ -1,20 +1,21 @@
-﻿using MebelBusinessLogic.BusinessLogics;
+﻿using MebelBusinessLogic.BusinessLogic;
+using MebelBusinessLogic.BusinessLogics;
 using System;
 using System.Windows;
 using Unity;
 
-namespace MebelCustomerView
+namespace MebelProviderView
 {
 	/// <summary>
-	/// Логика взаимодействия для Enter.xaml
+	/// Логика взаимодействия для LoginWindow.xaml
 	/// </summary>
 	public partial class LoginWindow : Window
 	{
         [Dependency]
         public new IUnityContainer Container { get; set; }
-        private readonly CustomerLogic logic;
+        private readonly ProviderLogic logic;
 
-        public LoginWindow(CustomerLogic logic)
+        public LoginWindow(ProviderLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
@@ -51,7 +52,7 @@ namespace MebelCustomerView
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<WelcomeWindow>();
+            var window = Container.Resolve<EntryWindow>();
             window.Show();
             Close();
         }

@@ -13,14 +13,17 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Unity;
 
-namespace MebelCustomerView
+namespace MebelProviderView
 {
-	public partial class WelcomeWindow : Window
+	/// <summary>
+	/// Логика взаимодействия для EntryWindow.xaml
+	/// </summary>
+	public partial class EntryWindow : Window
 	{
         [Dependency]
         public IUnityContainer Container { get; set; }
 
-        public WelcomeWindow()
+        public EntryWindow()
         {
             InitializeComponent();
         }

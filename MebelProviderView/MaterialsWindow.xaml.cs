@@ -1,27 +1,37 @@
-﻿using MebelBusinessLogic.BindnigModels;
+﻿using MebelBusinessLogic.BindingModels;
 using MebelBusinessLogic.BusinessLogics;
 using MebelBusinessLogic.ViewModels;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using Unity;
 
-namespace MebelCustomerView
+namespace MebelProviderView
 {
 	/// <summary>
-	/// Логика взаимодействия для Mebel.xaml
+	/// Логика взаимодействия для MaterialsWindow.xaml
 	/// </summary>
-	public partial class MebelWindow : Window
+	public partial class MaterialsWindow : Window
 	{
         [Dependency]
         public new IUnityContainer Container { get; set; }
-        MebelLogic _logic;
+        MaterialLogic _logic;
         public int Id { set { id = value; } }
         private int? id;
 
-        public MebelWindow(MebelLogic logic)
+        public MaterialsWindow(MaterialLogic logic)
         {
             InitializeComponent();
             _logic = logic;
@@ -51,7 +61,7 @@ namespace MebelCustomerView
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<CreateMebelWindow>();
+            var window = Container.Resolve<CreateMaterialWindow>();
             window.ShowDialog();
             if (window.DialogResult == true)
             {
@@ -63,19 +73,21 @@ namespace MebelCustomerView
         {
             if (DataGridView.SelectedIndex != -1)
             {
-                MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo,
+               MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    MebelViewModel mebel = (MebelViewModel)DataGridView.SelectedCells[0].Item;
-                    int id = Convert.ToInt32(mebel.Id);
+                    MaterialViewModel material = (MaterialViewModel)DataGridView.SelectedCells[0].Item;
+                    int id = Convert.ToInt32(material.Id);
                     try
                     {
-                        _logic.Delete(new MebelBindingModel { Id = id });
+                        _logic.Delete(new MaterialBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+                       MessageBoxImage.Error);
                     }
                     LoadData();
                 }
@@ -86,8 +98,8 @@ namespace MebelCustomerView
         {
             if (DataGridView.SelectedIndex != -1)
             {
-                var window = Container.Resolve<CreateMebelWindow>();
-                MebelViewModel garniture = (MebelViewModel)DataGridView.SelectedCells[0].Item;
+                var window = Container.Resolve<CreateMaterialWindow>();
+                GarnitureViewModel garniture = (GarnitureViewModel)DataGridView.SelectedCells[0].Item;
                 window.Id = Convert.ToInt32(garniture.Id);
                 window.ShowDialog();
                 if (window.DialogResult == true)

@@ -1,13 +1,25 @@
-﻿using System;
-using System.Windows;
-using Unity;
-using MebelBusinessLogic.BindnigModels;
+﻿using MebelBusinessLogic.BindnigModels;
+using MebelBusinessLogic.BusinessLogic;
 using MebelBusinessLogic.BusinessLogics;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
+using Unity;
 
-namespace MebelCustomerView
+namespace MebelProviderView
 {
 	/// <summary>
-	/// Логика взаимодействия для Registration.xaml
+	/// Логика взаимодействия для RegistrationWindow.xaml
 	/// </summary>
 	public partial class RegistrationWindow : Window
 	{
@@ -15,8 +27,9 @@ namespace MebelCustomerView
         public new IUnityContainer Container { get; set; }
         public int Id { set { id = value; } }
         private int? id;
-        private readonly CustomerLogic logic;
-        public RegistrationWindow(CustomerLogic logic)
+        private readonly ProviderLogic logic;
+
+        public RegistrationWindow(ProviderLogic logic)
         {
             InitializeComponent();
             this.logic = logic;
@@ -36,7 +49,7 @@ namespace MebelCustomerView
             }
             try
             {
-                logic.CreateOrUpdate(new CustomerBindingModel
+                logic.CreateOrUpdate(new ProviderBindingModel
                 {
                     Id = id,
                     FullName = tbUserName.Text,
@@ -44,7 +57,7 @@ namespace MebelCustomerView
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                var window = Container.Resolve<WelcomeWindow>();
+                var window = Container.Resolve<EntryWindow>();
                 window.Show();
                 Close();
             }
@@ -57,7 +70,7 @@ namespace MebelCustomerView
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<WelcomeWindow>();
+            var window = Container.Resolve<EntryWindow>();
             window.Show();
             Close();
         }
