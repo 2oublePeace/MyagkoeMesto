@@ -30,7 +30,7 @@ namespace MebelBusinessLogic.BusinessLogics
 
 		public void CreateOrUpdate(ModuleBindingModel model)
 		{
-			var element = _moduleStorage.GetElement(new ModuleBindingModel { ModuleName = model.ModuleName });
+			var element = _moduleStorage.GetElement(new ModuleBindingModel { Name = model.Name });
 			if (element != null && element.Id != model.Id)
 			{
 				throw new Exception("Уже есть подарок с таким названием");

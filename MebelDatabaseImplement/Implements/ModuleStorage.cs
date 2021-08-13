@@ -23,7 +23,7 @@ namespace MebelDatabaseImplement.Implements
                     .Select(rec => new ModuleViewModel
                     {
                         Id = rec.Id,
-                        ModuleName = rec.ModuleName,
+                        Name = rec.Name,
                         Price = rec.Price,
                         ModuleMaterials = rec.ModuleMaterial
                             .ToDictionary(recModuleMaterials => recModuleMaterials.MaterialId,
@@ -45,12 +45,12 @@ namespace MebelDatabaseImplement.Implements
                 return context.Modules
                     .Include(rec => rec.ModuleMaterial)
                     .ThenInclude(rec => rec.Material)
-                    .Where(rec => rec.ModuleName.Contains(model.ModuleName))
+                    .Where(rec => rec.Name.Contains(model.Name))
                     .ToList()
                     .Select(rec => new ModuleViewModel
                     {
                         Id = rec.Id,
-                        ModuleName = rec.ModuleName,
+                        Name = rec.Name,
                         Price = rec.Price,
                         ModuleMaterials = rec.ModuleMaterial
                             .ToDictionary(recModuleMaterials => recModuleMaterials.MaterialId,
@@ -72,14 +72,14 @@ namespace MebelDatabaseImplement.Implements
                 var module = context.Modules
                     .Include(rec => rec.ModuleMaterial)
                     .ThenInclude(rec => rec.Material)
-                    .FirstOrDefault(rec => rec.ModuleName == model.ModuleName ||
+                    .FirstOrDefault(rec => rec.Name == model.Name ||
                     rec.Id == model.Id);
 
                 return module != null ?
                     new ModuleViewModel
                     {
                         Id = module.Id,
-                        ModuleName = module.ModuleName,
+                        Name = module.Name,
                         Price = module.Price,
                         ModuleMaterials = module.ModuleMaterial
                             .ToDictionary(recModuleMaterial => recModuleMaterial.MaterialId,
@@ -155,7 +155,7 @@ namespace MebelDatabaseImplement.Implements
         }
         private Module CreateModel(ModuleBindingModel model, Module module, MebelDatabase context)
         {
-            module.ModuleName = model.ModuleName;
+            module.Name = model.Name;
             module.Price = model.Price;
             if (module.Id == 0)
             {

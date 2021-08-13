@@ -154,8 +154,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddMaterialWindow.xaml.cs">
+      <DependentUpon>AddMaterialWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreateMaterialWindow.xaml.cs">
       <DependentUpon>CreateMaterialWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateModuleWindow.xaml.cs">
+      <DependentUpon>CreateModuleWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="EntryWindow.xaml.cs">
       <DependentUpon>EntryWindow.xaml</DependentUpon>
@@ -166,7 +172,15 @@
     <Compile Include="RegistrationWindow.xaml.cs">
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddMaterialWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CreateMaterialWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateModuleWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

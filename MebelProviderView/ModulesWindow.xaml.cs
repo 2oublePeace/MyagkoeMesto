@@ -61,7 +61,7 @@ namespace MebelProviderView
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<CreateMaterialWindow>();
+            var window = Container.Resolve<CreateModuleWindow>();
             window.ShowDialog();
             if (window.DialogResult == true)
             {
@@ -98,7 +98,7 @@ namespace MebelProviderView
         {
             if (DataGridView.SelectedIndex != -1)
             {
-                var window = Container.Resolve<CreateMaterialWindow>();
+                var window = Container.Resolve<CreateModuleWindow>();
                 GarnitureViewModel garniture = (GarnitureViewModel)DataGridView.SelectedCells[0].Item;
                 window.Id = Convert.ToInt32(garniture.Id);
                 window.ShowDialog();

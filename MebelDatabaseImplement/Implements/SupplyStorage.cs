@@ -19,7 +19,7 @@ namespace MebelDatabaseImplement.Implements
                     .Select(rec => new SupplyViewModel
                     {
                         Id = rec.Id,
-                        ModuleName = rec.Module.ModuleName,
+                        ModuleName = rec.Module.Name,
                         MaterialId = rec.MaterialId,
                         Count = rec.Count,
                         Sum = rec.Sum,
@@ -44,7 +44,7 @@ namespace MebelDatabaseImplement.Implements
                 .Select(rec => new SupplyViewModel
                 {
                     Id = rec.Id,
-                    ModuleName = rec.Module.ModuleName,
+                    ModuleName = rec.Module.Name,
                     MaterialId = rec.MaterialId,
                     Count = rec.Count,
                     Sum = rec.Sum,
@@ -71,7 +71,7 @@ namespace MebelDatabaseImplement.Implements
                     new SupplyViewModel
                     {
                         Id = supply.Id,
-                        ModuleName = context.Modules.FirstOrDefault(rec => rec.Id == supply.MaterialId)?.ModuleName,
+                        ModuleName = context.Modules.FirstOrDefault(rec => rec.Id == supply.MaterialId)?.Name,
                         MaterialId = supply.MaterialId,
                         Count = supply.Count,
                         Sum = supply.Sum,

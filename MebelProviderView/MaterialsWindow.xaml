@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MebelProviderView"
         mc:Ignorable="d"
-        Title="MaterialsWindow" Height="450" Width="800">
+        Title="MaterialsWindow" Height="450" Width="800"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>

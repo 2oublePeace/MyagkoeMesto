@@ -19,7 +19,7 @@ namespace MebelDatabaseImplement.Implements
                 .Select(rec => new MaterialViewModel
                 {
                     Id = rec.Id,
-                    MaterialName = rec.MaterialName
+                    Name = rec.MaterialName
                 })
                .ToList();
             }
@@ -37,7 +37,7 @@ namespace MebelDatabaseImplement.Implements
                .Select(rec => new MaterialViewModel
                {
                    Id = rec.Id,
-                   MaterialName = rec.MaterialName
+                   Name = rec.MaterialName
                })
                 .ToList();
             }
@@ -57,7 +57,7 @@ namespace MebelDatabaseImplement.Implements
                 new MaterialViewModel
                 {
                     Id = component.Id,
-                    MaterialName = component.MaterialName
+                    Name = component.MaterialName
                 } :
                null;
             }

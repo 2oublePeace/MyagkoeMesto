@@ -33,7 +33,7 @@ namespace MebelBusinessLogic.BusinessLogics
 				{
 					docBody.AppendChild(CreateParagraph(new WordParagraph
 					{
-						Texts = new List<(string, WordTextProperties)> { ($"{module.ModuleName}: ", new WordTextProperties { Size = "24", Bold = true }), (module.Price.ToString(), new WordTextProperties { Size = "24" }) },
+						Texts = new List<(string, WordTextProperties)> { ($"{module.Name}: ", new WordTextProperties { Size = "24", Bold = true }), (module.Price.ToString(), new WordTextProperties { Size = "24" }) },
 						TextProperties = new WordTextProperties
 						{
 							Size = "24",

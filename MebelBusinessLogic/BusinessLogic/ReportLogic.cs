@@ -33,7 +33,7 @@ namespace MebelBusinessLogic.BusinessLogics
 			{
 				var record = new ReportModuleMaterialViewModel
 				{
-					ModuleName = module.ModuleName,
+					ModuleName = module.Name,
 					Materials = new List<Tuple<string, int>>(),
 					TotalCount = 0
 				};
@@ -41,7 +41,7 @@ namespace MebelBusinessLogic.BusinessLogics
 				{
 					if (module.ModuleMaterials.ContainsKey(material.Id))
 					{
-						record.Materials.Add(new Tuple<string, int>(material.MaterialName, module.ModuleMaterials[material.Id].Item2));
+						record.Materials.Add(new Tuple<string, int>(material.Name, module.ModuleMaterials[material.Id].Item2));
 						record.TotalCount += module.ModuleMaterials[material.Id].Item2;
 					}
 				}

@@ -25,14 +25,12 @@ namespace MebelProviderView
         {
             if (string.IsNullOrEmpty(tbUserName.Text))
             {
-                MessageBox.Show("Введите имя пользователя", "Ошибка",
-               MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Введите имя пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (string.IsNullOrEmpty(tbPassword.Text))
             {
-                MessageBox.Show("Выберите пароль", "Ошибка", MessageBoxButton.OK,
-               MessageBoxImage.Error);
+                MessageBox.Show("Выберите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try
@@ -45,8 +43,7 @@ namespace MebelProviderView
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-               MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

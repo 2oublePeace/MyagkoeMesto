@@ -9,7 +9,7 @@ namespace MebelBusinessLogic.ViewModels
 	{
 		public int Id { get; set; }
 		[DisplayName("Название изделия")]
-		public string ModuleName { get; set; }
+		public string Name { get; set; }
 		[DisplayName("Цена")]
 		public decimal Price { get; set; }
 		[DisplayName("Источник")]
