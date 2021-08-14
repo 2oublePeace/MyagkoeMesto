@@ -11,6 +11,6 @@ namespace MebelBusinessLogic.ViewModels
 		[DisplayName("Название устройства")]
 		public string Name { get; set; }
 		[DisplayName("Цена")]
-		public string Price { get; set; }
+		public decimal Price { get; set; }
 	}
 }

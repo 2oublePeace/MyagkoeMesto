@@ -28,9 +28,11 @@ namespace MebelProviderView
         [Dependency]
         public new IUnityContainer Container { get; set; }
         ModuleLogic _logicModule;
-        MaterialLogic _logicMaterial;
+        MaterialLogic _logicMaterial; 
         public int Id { set { id = value; } }
+        public int Sum { set { sum += value; } }
         private int? id;
+        private decimal sum = 0;
         private Dictionary<int, (string, int)> moduleMaterials;
 
         public CreateModuleWindow(ModuleLogic logicModule, MaterialLogic medicineLogic)
@@ -52,6 +54,7 @@ namespace MebelProviderView
                     })?[0];
                     if (view != null)
                     {
+                        sum = view.Price;
                         tbModuleName.Text = view.Name;
                         moduleMaterials = view.ModuleMaterials;
                         LoadData();
@@ -75,21 +78,26 @@ namespace MebelProviderView
 				if (moduleMaterials != null)
 				{
 					List<ModuleMaterialViewModel> list = new List<ModuleMaterialViewModel>();
+
 					foreach (var material in moduleMaterials)
 					{
 						list.Add(new ModuleMaterialViewModel { Id = material.Key, MaterialName = material.Value.Item1, MaterialCount = material.Value.Item2 });
-					}
-					dgReceiptMedicine.ItemsSource = list;
+                    }
+
+                    tbModulePrice.Text = sum.ToString();
+                    dgReceiptMedicine.ItemsSource = list;
 					dgReceiptMedicine.Columns[0].Visibility = Visibility.Hidden;
 				}
-			}
+
+                
+            }
 			catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
 			try
 			{
@@ -97,6 +105,7 @@ namespace MebelProviderView
 				{
 					Id = id,
 					Name = tbModuleName.Text,
+                    Price = Convert.ToDecimal(tbModulePrice.Text),
 					ModuleMaterials = moduleMaterials
 				});
 				MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -114,44 +123,47 @@ namespace MebelProviderView
             Close();
         }
 
-        private void AddMedicine_Click(object sender, RoutedEventArgs e)
+        private void btnAddMaterial_Click(object sender, RoutedEventArgs e)
         {
 			var window = Container.Resolve<AddMaterialWindow>();
 			window.ShowDialog();
-			if (window.DialogResult == true)
-			{
-				if (!moduleMaterials.ContainsKey(window.Id))
-				{
-					moduleMaterials.Add(window.Id, (window.MaterialName, window.MaterialCount));
-				}
+            if (window.DialogResult == true)
+            {
+                if (!moduleMaterials.ContainsKey(window.Id))
+                {
+                    moduleMaterials.Add(window.Id, (window.MaterialName, window.MaterialCount));
+                }
 
+                sum += _logicMaterial.Read(new MaterialBindingModel { Id = window.Id })[0].Price * window.MaterialCount;
 			}
 			LoadData();
 		}
 
 
-        private void btnDeleteMedicine_Click(object sender, RoutedEventArgs e)
+        private void btnDeleteMaterial_Click(object sender, RoutedEventArgs e)
         {
-            /*if (dgReceiptMedicine.SelectedIndex != -1)
-            {
-                MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
+			if (dgReceiptMedicine.SelectedIndex != -1)
+			{
+				MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                if (result == MessageBoxResult.Yes)
-                {
-                    ReceiptMedicineViewModel medicine = (ReceiptMedicineViewModel)dgReceiptMedicine.SelectedCells[0].Item;
-                    try
-                    {
-                        receiptMedicine.Remove(medicine.Id);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+				if (result == MessageBoxResult.Yes)
+				{
+					ModuleMaterialViewModel material = (ModuleMaterialViewModel)dgReceiptMedicine.SelectedCells[0].Item;
+					try
+					{
+                        moduleMaterials.Remove(material.Id);
+					}
+					catch (Exception ex)
+					{
+						MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+					}
+
+                    sum -= _logicMaterial.Read(new MaterialBindingModel { Id = material.Id })[0].Price * material.MaterialCount;
                     LoadData();
-                }
-            }*/
+				}
+			}
 
-        }
+		}
 
         private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {

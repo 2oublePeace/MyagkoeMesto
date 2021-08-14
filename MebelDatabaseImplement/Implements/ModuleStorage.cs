@@ -165,22 +165,15 @@ namespace MebelDatabaseImplement.Implements
 
             if (model.Id.HasValue)
             {
-                var moduleMaterial = context.ModuleMaterials
-                    .Where(rec => rec.ModuleId == model.Id.Value)
-                    .ToList();
+                var moduleMaterials = context.ModuleMaterials
+                     .Where(rec => rec.ModuleId == model.Id.Value)
+                     .ToList();
 
-                context.ModuleMaterials.RemoveRange(moduleMaterial
-                    .Where(rec => !model.ModuleMaterials.ContainsKey(rec.ModuleId))
-                    .ToList());
-                context.SaveChanges();
+                context.ModuleMaterials.RemoveRange(moduleMaterials.ToList());
 
-                foreach (var updateMaterial in moduleMaterial)
-                {
-                    updateMaterial.Count = model.ModuleMaterials[updateMaterial.MaterialId].Item2;
-                    model.ModuleMaterials.Remove(updateMaterial.ModuleId);
-                }
                 context.SaveChanges();
             }
+
             foreach (var moduleMaterial in model.ModuleMaterials)
             {
                 context.ModuleMaterials.Add(new ModuleMaterial

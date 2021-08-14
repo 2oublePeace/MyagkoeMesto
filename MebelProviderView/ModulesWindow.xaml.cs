@@ -99,7 +99,7 @@ namespace MebelProviderView
             if (DataGridView.SelectedIndex != -1)
             {
                 var window = Container.Resolve<CreateModuleWindow>();
-                GarnitureViewModel garniture = (GarnitureViewModel)DataGridView.SelectedCells[0].Item;
+                ModuleViewModel garniture = (ModuleViewModel)DataGridView.SelectedCells[0].Item;
                 window.Id = Convert.ToInt32(garniture.Id);
                 window.ShowDialog();
                 if (window.DialogResult == true)

@@ -46,6 +46,7 @@ namespace MebelProviderView
                 _logic.CreateOrUpdate(new MaterialBindingModel
                 {
                     Id = id,
+                    Price = Convert.ToInt32(tbPrice.Text),
                     Name = tbName.Text,
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
