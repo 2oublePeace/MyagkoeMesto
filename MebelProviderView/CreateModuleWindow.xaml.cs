@@ -30,7 +30,6 @@ namespace MebelProviderView
         ModuleLogic _logicModule;
         MaterialLogic _logicMaterial; 
         public int Id { set { id = value; } }
-        public int Sum { set { sum += value; } }
         private int? id;
         private decimal sum = 0;
         private Dictionary<int, (string, int)> moduleMaterials;
@@ -88,8 +87,6 @@ namespace MebelProviderView
                     dgReceiptMedicine.ItemsSource = list;
 					dgReceiptMedicine.Columns[0].Visibility = Visibility.Hidden;
 				}
-
-                
             }
 			catch (Exception ex)
 			{
