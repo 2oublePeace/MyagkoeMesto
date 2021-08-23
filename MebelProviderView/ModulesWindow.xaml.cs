@@ -2,20 +2,10 @@
 using MebelBusinessLogic.BusinessLogics;
 using MebelBusinessLogic.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Unity;
 
 namespace MebelProviderView
@@ -50,7 +40,8 @@ namespace MebelProviderView
                 if (list != null)
                 {
                     DataGridView.ItemsSource = list;
-                    DataGridView.Columns[0].Visibility = Visibility.Hidden;
+                    /*DataGridView.Columns[0].Visibility = Visibility.Hidden;
+                    DataGridView.Columns[3].Visibility = Visibility.Hidden;*/
                 }
             }
             catch (Exception ex)
@@ -73,8 +64,7 @@ namespace MebelProviderView
         {
             if (DataGridView.SelectedIndex != -1)
             {
-                MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo,
-               MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
@@ -86,8 +76,7 @@ namespace MebelProviderView
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-                       MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     LoadData();
                 }

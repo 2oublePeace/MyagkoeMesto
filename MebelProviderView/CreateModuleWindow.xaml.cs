@@ -4,18 +4,9 @@ using MebelBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Unity;
 
 namespace MebelProviderView
@@ -29,16 +20,19 @@ namespace MebelProviderView
         public new IUnityContainer Container { get; set; }
         ModuleLogic _logicModule;
         MaterialLogic _logicMaterial; 
+        MebelLogic _logicMebel; 
         public int Id { set { id = value; } }
         private int? id;
         private decimal sum = 0;
         private Dictionary<int, (string, int)> moduleMaterials;
+        private Dictionary<int, (string, int)> moduleMebels;
 
-        public CreateModuleWindow(ModuleLogic logicModule, MaterialLogic medicineLogic)
+        public CreateModuleWindow(ModuleLogic logicModule, MaterialLogic logicMaterial, MebelLogic logicMebel)
         {
             InitializeComponent();
             _logicModule = logicModule;
-            _logicMaterial = medicineLogic;
+            _logicMaterial = logicMaterial;
+            _logicMebel = logicMebel;
         }
 
         private void Window_loaded(object sender, RoutedEventArgs e)
@@ -67,6 +61,7 @@ namespace MebelProviderView
             else
             {
                 moduleMaterials = new Dictionary<int, (string, int)>();
+                moduleMebels = new Dictionary<int, (string, int)>();
             }
         }
 
@@ -76,17 +71,41 @@ namespace MebelProviderView
 			{
 				if (moduleMaterials != null)
 				{
-					List<ModuleMaterialViewModel> list = new List<ModuleMaterialViewModel>();
+                    List<ModuleMaterialViewModel> moduleMaterialList = new List<ModuleMaterialViewModel>();
 
-					foreach (var material in moduleMaterials)
-					{
-						list.Add(new ModuleMaterialViewModel { Id = material.Key, MaterialName = material.Value.Item1, MaterialCount = material.Value.Item2 });
+                    foreach (var material in moduleMaterials)
+                    {
+                        moduleMaterialList.Add(new ModuleMaterialViewModel
+                        {
+                            Id = material.Key,
+                            MaterialName = material.Value.Item1,
+                            MaterialCount = material.Value.Item2
+                        });
                     }
 
                     tbModulePrice.Text = sum.ToString();
-                    dgReceiptMedicine.ItemsSource = list;
-					dgReceiptMedicine.Columns[0].Visibility = Visibility.Hidden;
-				}
+                    dgModuleMaterials.ItemsSource = moduleMaterialList;
+                    dgModuleMaterials.Columns[0].Visibility = Visibility.Hidden;
+                }
+
+                if (moduleMebels != null)
+                {
+                    List<ModuleMebelViewModel> moduleMebelList = new List<ModuleMebelViewModel>();
+
+                    foreach (var mebel in moduleMebels)
+                    {
+                        moduleMebelList.Add(new ModuleMebelViewModel
+                        {
+                            Id = mebel.Key,
+                            MebelName = mebel.Value.Item1,
+                            MebelCount = mebel.Value.Item2
+                        });
+                    }
+
+                    //tbModulePrice.Text = sum.ToString();
+                    dgModuleMebels.ItemsSource = moduleMebelList;
+                    dgModuleMebels.Columns[0].Visibility = Visibility.Hidden;
+                }
             }
 			catch (Exception ex)
 			{
@@ -103,7 +122,8 @@ namespace MebelProviderView
 					Id = id,
 					Name = tbModuleName.Text,
                     Price = Convert.ToDecimal(tbModulePrice.Text),
-					ModuleMaterials = moduleMaterials
+					ModuleMaterials = moduleMaterials,
+                    ModuleMebels = moduleMebels
 				});
 				MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
 				this.DialogResult = true;
@@ -139,13 +159,13 @@ namespace MebelProviderView
 
         private void btnDeleteMaterial_Click(object sender, RoutedEventArgs e)
         {
-			if (dgReceiptMedicine.SelectedIndex != -1)
+			if (dgModuleMaterials.SelectedIndex != -1)
 			{
 				MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
 				if (result == MessageBoxResult.Yes)
 				{
-					ModuleMaterialViewModel material = (ModuleMaterialViewModel)dgReceiptMedicine.SelectedCells[0].Item;
+					ModuleMaterialViewModel material = (ModuleMaterialViewModel)dgModuleMaterials.SelectedCells[0].Item;
 					try
 					{
                         moduleMaterials.Remove(material.Id);
@@ -161,6 +181,22 @@ namespace MebelProviderView
 			}
 
 		}
+
+        private void btnAddMebel_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<AddMebelWindow>();
+            window.ShowDialog();
+            if (window.DialogResult == true)
+            {
+                if (!moduleMebels.ContainsKey(window.Id))
+                {
+                    moduleMebels.Add(window.Id, (window.MebelName, window.MebelCount));
+                }
+
+                //sum += _logicMebel.Read(new MebelBindingModel { Id = window.Id })[0].Price * window.MaterialCount;
+            }
+            LoadData();
+        }
 
         private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
         {

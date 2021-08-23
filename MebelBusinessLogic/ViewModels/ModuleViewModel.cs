@@ -14,5 +14,7 @@ namespace MebelBusinessLogic.ViewModels
 		public decimal Price { get; set; }
 		[DisplayName("Источник")]
 		public Dictionary<int, (string, int)> ModuleMaterials { get; set; }
+		[DisplayName("Источник")]
+		public Dictionary<int, (string, int)> ModuleMebels { get; set; }
 	}
 }

@@ -18,6 +18,17 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="15"/>
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Orientation" Value="Horizontal"/>
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="Margin" Value="5"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -25,29 +36,38 @@
             <RowDefinition Height="54"/>
             <RowDefinition/>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Label Content="Название: " Grid.Column="0" Grid.Row="0"/>
-        <TextBox Name="tbModuleName" Grid.Column="1" Grid.Row="0" Margin="15"/>
+        <Label Content="Название: " Grid.Column="1" Grid.Row="0"/>
+        <TextBox Name="tbModuleName" Grid.Column="2" Grid.Row="0"/>
 
-        <Label Content="Цена: " Grid.Column="0" Grid.Row="1"/>
-        <TextBox Name="tbModulePrice" Grid.Column="1" Grid.Row="1" Margin="15" IsReadOnly="True"/>
+        <Label Content="Цена: " Grid.Column="1" Grid.Row="1"/>
+        <TextBox Name="tbModulePrice" Grid.Column="2" Grid.Row="1" IsReadOnly="True"/>
 
-        <DataGrid Name="dgReceiptMedicine" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True" />
-        <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Height="120">
-            <Button Name="AddMedicine" Margin="20" Content="Добавить лекарство" Click="btnAddMaterial_Click"/>
-            <Button Name="btnDeleteMedicine" Margin="20" Content="Удалить лекарство" Click="btnDeleteMaterial_Click"/>
+        <DataGrid Name="dgModuleMaterials" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True" />
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">
+            <Button Name="btnAddMaterial" Content="Добавить материал" Click="btnAddMaterial_Click"/>
+            <Button Name="btnDeleteMaterial" Content="Удалить материал" Click="btnDeleteMaterial_Click"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="3" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Height="40">
-            <Button Name="Save" Grid.Row="2" Grid.Column="1" Content="Сохранить" Click="btnAdd_Click"/>
-            <Button Name="Cancel" Grid.Row="2" Grid.Column="0" Content="Отменить" Click="btnCancel_Click"/>
+        <DataGrid Name="dgModuleMebels" Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True" />
+        <StackPanel Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2">
+            <Button Name="btnAddMebel" Content="Добавить мебель" Click="btnAddMebel_Click"/>
+            <Button Name="btnDeleteMebel" Content="Удалить мебель" Click="btnDeleteMaterial_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Grid.Column="3">
+            <Button Name="Save"  Content="Сохранить" Click="btnAdd_Click"/>
+            <Button Name="Cancel" Content="Отменить" Click="btnCancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>

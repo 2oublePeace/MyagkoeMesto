@@ -29,5 +29,6 @@ namespace MebelDatabaseImplement
 		public virtual DbSet<Material> Materials { set; get; }
 		public virtual DbSet<Module> Modules { set; get; }
 		public virtual DbSet<ModuleMaterial> ModuleMaterials { set; get; }
+		public virtual DbSet<ModuleMebel> ModuleMebels { set; get; }
 	}
 }

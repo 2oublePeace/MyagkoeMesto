@@ -16,16 +16,19 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <DataGrid Name="DataGridView" Grid.Row="0" Margin="5" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True"/>
+        <DataGrid Name="DataGridView" Grid.Row="0" Margin="5" Grid.ColumnSpan="4" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True"/>
         <Button Name="Add" Grid.Row="1"  Content="Добавить"  Click="Add_Click"/>
-        <Button Name="Delete" Grid.Row="2" Content="Удалить" Click="Delete_Click"/>
-        <Button Name="Change" Grid.Row="3" Content="Изменить"  Click="Change_Click"/>
-        <Button Name="Cancel"  Grid.Row="4" Content="Отмена"  Click="Cancel_Click" />
+        <Button Name="Delete" Grid.Row="1" Grid.Column="1" Content="Удалить" Click="Delete_Click"/>
+        <Button Name="Change" Grid.Row="1" Grid.Column="2" Content="Изменить"  Click="Change_Click"/>
+        <Button Name="Cancel"  Grid.Row="1" Grid.Column="3" Content="Отмена"  Click="Cancel_Click" />
     </Grid>
 </Window>

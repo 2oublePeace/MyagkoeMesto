@@ -13,6 +13,8 @@ namespace MebelDatabaseImplement.Models
         public decimal Price { get; set; }
         [ForeignKey("ModuleId")]
         public virtual List<ModuleMaterial> ModuleMaterial { get; set; }
+        [ForeignKey("ModuleId")]
+        public virtual List<ModuleMebel> ModuleMebel { get; set; }
     }
 }
 

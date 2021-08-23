@@ -39,6 +39,22 @@ namespace MebelDatabaseImplement.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("MebelDatabaseImplement.Models.Garniture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Garniture");
+                });
+
             modelBuilder.Entity("MebelDatabaseImplement.Models.Material", b =>
                 {
                     b.Property<int>("Id")
@@ -46,7 +62,7 @@ namespace MebelDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MaterialName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -58,6 +74,22 @@ namespace MebelDatabaseImplement.Migrations
                     b.ToTable("Materials");
                 });
 
+            modelBuilder.Entity("MebelDatabaseImplement.Models.Mebel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Mebel");
+                });
+
             modelBuilder.Entity("MebelDatabaseImplement.Models.Module", b =>
                 {
                     b.Property<int>("Id")
@@ -65,7 +97,7 @@ namespace MebelDatabaseImplement.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ModuleName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -100,6 +132,51 @@ namespace MebelDatabaseImplement.Migrations
                     b.HasIndex("ModuleId");
 
                     b.ToTable("ModuleMaterials");
+                });
+
+            modelBuilder.Entity("MebelDatabaseImplement.Models.ModuleMebel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MebelId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ModuleId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MebelId");
+
+                    b.HasIndex("ModuleId");
+
+                    b.ToTable("ModuleMebels");
+                });
+
+            modelBuilder.Entity("MebelDatabaseImplement.Models.Provider", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Providers");
                 });
 
             modelBuilder.Entity("SecureShopDatabaseImplement.Models.Supply", b =>
@@ -149,6 +226,21 @@ namespace MebelDatabaseImplement.Migrations
 
                     b.HasOne("MebelDatabaseImplement.Models.Module", "Module")
                         .WithMany("ModuleMaterial")
+                        .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MebelDatabaseImplement.Models.ModuleMebel", b =>
+                {
+                    b.HasOne("MebelDatabaseImplement.Models.Mebel", "Mebel")
+                        .WithMany("ModuleMebels")
+                        .HasForeignKey("MebelId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MebelDatabaseImplement.Models.Module", "Module")
+                        .WithMany("ModuleMebel")
                         .HasForeignKey("ModuleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

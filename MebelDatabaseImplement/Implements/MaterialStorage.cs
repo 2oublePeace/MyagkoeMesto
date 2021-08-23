@@ -19,7 +19,7 @@ namespace MebelDatabaseImplement.Implements
                 .Select(rec => new MaterialViewModel
                 {
                     Id = rec.Id,
-                    Name = rec.MaterialName,
+                    Name = rec.Name,
                     Price = rec.Price
                 })
                .ToList();
@@ -34,11 +34,11 @@ namespace MebelDatabaseImplement.Implements
             using (var context = new MebelDatabase())
             {
                 return context.Materials
-                .Where(rec => rec.MaterialName.Contains(model.Name))
+                .Where(rec => rec.Name.Contains(model.Name))
                .Select(rec => new MaterialViewModel
                {
                    Id = rec.Id,
-                   Name = rec.MaterialName,
+                   Name = rec.Name,
                    Price = rec.Price
                })
                 .ToList();
@@ -53,13 +53,13 @@ namespace MebelDatabaseImplement.Implements
             using (var context = new MebelDatabase())
             {
                 var component = context.Materials
-                .FirstOrDefault(rec => rec.MaterialName == model.Name ||
+                .FirstOrDefault(rec => rec.Name == model.Name ||
                rec.Id == model.Id);
                 return component != null ?
                 new MaterialViewModel
                 {
                     Id = component.Id,
-                    Name = component.MaterialName,
+                    Name = component.Name,
                     Price = component.Price
                 } :
                null;
@@ -106,7 +106,7 @@ namespace MebelDatabaseImplement.Implements
         }
         private Material CreateModel(MaterialBindingModel model, Material material)
         {
-            material.MaterialName = model.Name;
+            material.Name = model.Name;
             material.Price = model.Price;
             return material;
         }

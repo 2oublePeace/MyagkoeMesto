@@ -8,7 +8,6 @@ namespace MebelDatabaseImplement.Models
 	public class ModuleMaterial
 	{
 		public int Id { get; set; }
-
 		public int ModuleId { get; set; }
 		public int MaterialId { get; set; }
 		[Required]

@@ -1,12 +1,11 @@
 ﻿using MebelBusinessLogic.BindingModels;
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
+using MebelDatabaseImplement.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using MebelDatabaseImplement.Models;
 
 namespace MebelDatabaseImplement.Implements
 {
@@ -18,18 +17,8 @@ namespace MebelDatabaseImplement.Implements
             {
                 return context.Modules
                     .Include(rec => rec.ModuleMaterial)
-                    .ThenInclude(rec => rec.Material)
-                    .ToList()
-                    .Select(rec => new ModuleViewModel
-                    {
-                        Id = rec.Id,
-                        Name = rec.Name,
-                        Price = rec.Price,
-                        ModuleMaterials = rec.ModuleMaterial
-                            .ToDictionary(recModuleMaterials => recModuleMaterials.MaterialId,
-                            recModuleMaterials => (recModuleMaterials.Material?.MaterialName,
-                            recModuleMaterials.Count))
-                    })
+                    .Include(rec => rec.ModuleMebel)
+                    .Select(CreateModel)
                     .ToList();
             }
         }
@@ -43,20 +32,10 @@ namespace MebelDatabaseImplement.Implements
             using (var context = new MebelDatabase())
             {
                 return context.Modules
-                    .Include(rec => rec.ModuleMaterial)
-                    .ThenInclude(rec => rec.Material)
-                    .Where(rec => rec.Name.Contains(model.Name))
-                    .ToList()
-                    .Select(rec => new ModuleViewModel
-                    {
-                        Id = rec.Id,
-                        Name = rec.Name,
-                        Price = rec.Price,
-                        ModuleMaterials = rec.ModuleMaterial
-                            .ToDictionary(recModuleMaterials => recModuleMaterials.MaterialId,
-                            recModuleMaterials => (recModuleMaterials.Material?.MaterialName,
-                            recModuleMaterials.Count))
-                    })
+                     .Include(rec => rec.ModuleMaterial)
+                    .Include(rec => rec.ModuleMebel)
+                    .Where(rec => rec.Id == model.Id)
+                    .Select(CreateModel)
                     .ToList();
             }
         }
@@ -72,20 +51,12 @@ namespace MebelDatabaseImplement.Implements
                 var module = context.Modules
                     .Include(rec => rec.ModuleMaterial)
                     .ThenInclude(rec => rec.Material)
-                    .FirstOrDefault(rec => rec.Name == model.Name ||
-                    rec.Id == model.Id);
+                    .Include(rec => rec.ModuleMebel)
+                    .ThenInclude(rec => rec.Mebel)
+                    .FirstOrDefault(rec => rec.Id == model.Id);
 
                 return module != null ?
-                    new ModuleViewModel
-                    {
-                        Id = module.Id,
-                        Name = module.Name,
-                        Price = module.Price,
-                        ModuleMaterials = module.ModuleMaterial
-                            .ToDictionary(recModuleMaterial => recModuleMaterial.MaterialId,
-                            recModuleMaterial => (recModuleMaterial.Material?.MaterialName,
-                            recModuleMaterial.Count))
-                    } :
+                    CreateModel(module) :
                     null;
             }
         }
@@ -99,7 +70,6 @@ namespace MebelDatabaseImplement.Implements
                     {
                         CreateModel(model, new Module(), context);
                         context.SaveChanges();
-
                         transaction.Commit();
                     }
                     catch
@@ -122,7 +92,7 @@ namespace MebelDatabaseImplement.Implements
 
                         if (module == null)
                         {
-                            throw new Exception("Подарок не найден");
+                            throw new Exception("Рецепт не найден");
                         }
 
                         CreateModel(model, module, context);
@@ -142,21 +112,42 @@ namespace MebelDatabaseImplement.Implements
         {
             using (var context = new MebelDatabase())
             {
-                var Material = context.Modules.FirstOrDefault(rec => rec.Id == model.Id);
+                var module = context.Modules.FirstOrDefault(rec => rec.Id == model.Id);
 
-                if (Material == null)
+                if (module == null)
                 {
-                    throw new Exception("Материал не найден");
+                    throw new Exception("Рецепт не найден");
                 }
 
-                context.Modules.Remove(Material);
+                context.Modules.Remove(module);
                 context.SaveChanges();
             }
         }
+        private ModuleViewModel CreateModel(Module module)
+        {
+            return new ModuleViewModel
+            {
+                Id = module.Id,
+                Name = module.Name,
+                Price = module.Price,
+               
+
+                ModuleMebels = module.ModuleMebel
+                            .ToDictionary(recModuleMebels => recModuleMebels.MebelId,
+                            recModuleMebels => (recModuleMebels.Mebel?.Name, recModuleMebels.Count)),
+                ModuleMaterials = module.ModuleMaterial
+                            .ToDictionary(recModuleMaterials => recModuleMaterials.MaterialId,
+                            recModuleMaterials => (recModuleMaterials.Material?.Name, recModuleMaterials.Count))
+
+            };
+
+        }
+
         private Module CreateModel(ModuleBindingModel model, Module module, MebelDatabase context)
         {
-            module.Name = model.Name;
             module.Price = model.Price;
+            module.Name = module.Name;
+
             if (module.Id == 0)
             {
                 context.Modules.Add(module);
@@ -165,22 +156,39 @@ namespace MebelDatabaseImplement.Implements
 
             if (model.Id.HasValue)
             {
+                var moduleMebels = context.ModuleMebels
+                    .Where(rec => rec.ModuleId == model.Id.Value)
+                    .ToList();
+
+                context.ModuleMebels.RemoveRange(moduleMebels.ToList());
+
                 var moduleMaterials = context.ModuleMaterials
-                     .Where(rec => rec.ModuleId == model.Id.Value)
-                     .ToList();
+                    .Where(rec => rec.ModuleId == model.Id.Value)
+                    .ToList();
 
                 context.ModuleMaterials.RemoveRange(moduleMaterials.ToList());
 
                 context.SaveChanges();
             }
 
-            foreach (var moduleMaterial in model.ModuleMaterials)
+            foreach (var moduleMebel in model.ModuleMebels)
+            {
+                context.ModuleMebels.Add(new ModuleMebel
+                {
+                    ModuleId = module.Id,
+                    MebelId = moduleMebel.Key,
+                    Count = moduleMebel.Value.Item2
+                });
+                context.SaveChanges();
+            }
+
+            foreach (var moduleMaterials in model.ModuleMaterials)
             {
                 context.ModuleMaterials.Add(new ModuleMaterial
                 {
                     ModuleId = module.Id,
-                    MaterialId = moduleMaterial.Key,
-                    Count = moduleMaterial.Value.Item2
+                    MaterialId = moduleMaterials.Key,
+                    Count = moduleMaterials.Value.Item2
                 });
                 context.SaveChanges();
             }

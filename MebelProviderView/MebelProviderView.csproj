@@ -157,6 +157,9 @@
     <Compile Include="AddMaterialWindow.xaml.cs">
       <DependentUpon>AddMaterialWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AddMebelWindow.xaml.cs">
+      <DependentUpon>AddMebelWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreateMaterialWindow.xaml.cs">
       <DependentUpon>CreateMaterialWindow.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,10 @@
       <DependentUpon>RegistrationWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AddMaterialWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AddMebelWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

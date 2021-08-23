@@ -10,5 +10,6 @@ namespace MebelBusinessLogic.BindingModels
 		public string Name { get; set; }
 		public decimal Price { get; set; }
 		public Dictionary<int, (string, int)> ModuleMaterials { get; set; }
+		public Dictionary<int, (string, int)> ModuleMebels { get; set; }
 	}
 }

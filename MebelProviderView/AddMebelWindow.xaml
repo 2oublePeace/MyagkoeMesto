@@ -1,4 +1,4 @@
-﻿<Window x:Class="MebelProviderView.AddMaterialWindow"
+﻿<Window x:Class="MebelProviderView.AddMebelWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -29,9 +29,9 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label Content="Название материала: " Grid.Row="0" Grid.Column="0" />
-        <ComboBox Name="cbMaterials" Grid.Row="0" Grid.Column="1" Margin="5" />
-        <Label Content="Количество материала: " Grid.Row="1" Grid.Column="0"/>
+        <Label Content="Название мебели: " Grid.Row="0" Grid.Column="0" />
+        <ComboBox Name="cbMebels" Grid.Row="0" Grid.Column="1" Margin="5" />
+        <Label Content="Количество мебели: " Grid.Row="1" Grid.Column="0"/>
         <TextBox Name="tbCount" Grid.Row="1" Grid.Column="1" Margin="5" />
         <Button Name="btnAdd" Grid.Row="2" Grid.Column="0" Margin="5" Content="Добавить" FontSize="16" Click="btnAdd_Click"/>
         <Button Name="btnCancel" Grid.Row="2" Grid.Column="1" Margin="5" Content="Отменить" FontSize="16" Click="btnCancel_Click"/>

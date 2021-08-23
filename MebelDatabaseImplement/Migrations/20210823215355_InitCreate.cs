@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace MebelDatabaseImplement.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class InitCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,12 +22,25 @@ namespace MebelDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Garniture",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Garniture", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Materials",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    MaterialName = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
@@ -36,17 +49,44 @@ namespace MebelDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Mebel",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Mebel", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Modules",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ModuleName = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Modules", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Providers",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(nullable: false),
+                    Password = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Providers", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -70,6 +110,33 @@ namespace MebelDatabaseImplement.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ModuleMaterials_Modules_ModuleId",
+                        column: x => x.ModuleId,
+                        principalTable: "Modules",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ModuleMebels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ModuleId = table.Column<int>(nullable: false),
+                    MebelId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ModuleMebels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ModuleMebels_Mebel_MebelId",
+                        column: x => x.MebelId,
+                        principalTable: "Mebel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ModuleMebels_Modules_ModuleId",
                         column: x => x.ModuleId,
                         principalTable: "Modules",
                         principalColumn: "Id",
@@ -118,6 +185,16 @@ namespace MebelDatabaseImplement.Migrations
                 column: "ModuleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ModuleMebels_MebelId",
+                table: "ModuleMebels",
+                column: "MebelId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ModuleMebels_ModuleId",
+                table: "ModuleMebels",
+                column: "ModuleId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Orders_MaterialId",
                 table: "Orders",
                 column: "MaterialId");
@@ -134,10 +211,22 @@ namespace MebelDatabaseImplement.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
+                name: "Garniture");
+
+            migrationBuilder.DropTable(
                 name: "ModuleMaterials");
 
             migrationBuilder.DropTable(
+                name: "ModuleMebels");
+
+            migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropTable(
+                name: "Providers");
+
+            migrationBuilder.DropTable(
+                name: "Mebel");
 
             migrationBuilder.DropTable(
                 name: "Materials");
