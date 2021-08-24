@@ -161,12 +161,6 @@
     <Compile Include="CreateGarnitureWindow.xaml.cs">
       <DependentUpon>CreateGarnitureWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="CreateMaterialWindow.xaml.cs">
-      <DependentUpon>CreateMaterialWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MaterialsWindow.xaml.cs">
-      <DependentUpon>MaterialsWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="СreateMebelWindow.xaml.cs">
       <DependentUpon>СreateMebelWindow.xaml</DependentUpon>
     </Compile>
@@ -186,14 +180,6 @@
       <DependentUpon>EntryWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="CreateGarnitureWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CreateMaterialWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MaterialsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

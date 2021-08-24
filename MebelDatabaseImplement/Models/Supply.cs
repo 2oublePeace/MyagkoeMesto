@@ -1,24 +1,20 @@
-﻿using MebelBusinessLogic.Enums;
-using MebelDatabaseImplement.Models;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SecureShopDatabaseImplement.Models
+namespace MebelDatabaseImplement.Models
 {
     public class Supply
     {
         public int Id { get; set; }
         [Required]
-        public int MaterialId { get; set; }
+        public DateTime Date { get; set; }
         [Required]
-        public int Count { get; set; }
+        public decimal Price { get; set; }
         [Required]
-        public decimal Sum { get; set; }
-        [Required]
-        public SupplyStatus Status { get; set; }
-        [Required]
-        public DateTime DateCreate { get; set; }
-        public DateTime? DateImplement { get; set; }
-        public virtual Module Module { get; set; }
+        public string Name { get; set; }
+        [ForeignKey("SupplyId")]
+        public virtual List<SupplyMaterial> SupplyMaterials { get; set; }
     }
 }

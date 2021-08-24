@@ -1,4 +1,5 @@
 ﻿using MebelBusinessLogic.BindingModels;
+using MebelBusinessLogic.BindnigModels;
 using MebelBusinessLogic.BusinessLogics;
 using MebelBusinessLogic.ViewModels;
 using System;
@@ -47,9 +48,10 @@ namespace MebelProviderView
                     })?[0];
                     if (view != null)
                     {
-                        sum = view.Price;
+                        tbModulePrice.Text = view.Price.ToString();
                         tbModuleName.Text = view.Name;
                         moduleMaterials = view.ModuleMaterials;
+                        moduleMebels = view.ModuleMebels;
                         LoadData();
                     }
                 }
@@ -69,7 +71,7 @@ namespace MebelProviderView
         {
 			try
 			{
-				if (moduleMaterials != null)
+                if (moduleMaterials != null)
 				{
                     List<ModuleMaterialViewModel> moduleMaterialList = new List<ModuleMaterialViewModel>();
 
@@ -102,7 +104,7 @@ namespace MebelProviderView
                         });
                     }
 
-                    //tbModulePrice.Text = sum.ToString();
+                    tbModulePrice.Text = sum.ToString();
                     dgModuleMebels.ItemsSource = moduleMebelList;
                     dgModuleMebels.Columns[0].Visibility = Visibility.Hidden;
                 }
@@ -193,7 +195,7 @@ namespace MebelProviderView
                     moduleMebels.Add(window.Id, (window.MebelName, window.MebelCount));
                 }
 
-                //sum += _logicMebel.Read(new MebelBindingModel { Id = window.Id })[0].Price * window.MaterialCount;
+                sum += _logicMebel.Read(new MebelBindingModel { Id = window.Id })[0].Price * window.MebelCount;
             }
             LoadData();
         }

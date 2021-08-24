@@ -18,7 +18,8 @@ namespace MebelDatabaseImplement.Implements
                 .Select(rec => new MebelViewModel
                 {
                     Id = rec.Id,
-                    Name = rec.Name
+                    Name = rec.Name,
+                    Price = rec.Price
                 })
                .ToList();
             }
@@ -36,7 +37,8 @@ namespace MebelDatabaseImplement.Implements
                 .Select(rec => new MebelViewModel
                 {
                     Id = rec.Id,
-                    Name = rec.Name
+                    Name = rec.Name,
+                    Price = rec.Price
                 })
                 .ToList();
             }
@@ -55,7 +57,8 @@ namespace MebelDatabaseImplement.Implements
                 new MebelViewModel
                 {
                     Id = component.Id,
-                    Name = component.Name
+                    Name = component.Name,
+                    Price = component.Price
                 } :
                 null;
             }
@@ -97,10 +100,11 @@ namespace MebelDatabaseImplement.Implements
                 }
             }
         }
-        private Mebel CreateModel(MebelBindingModel model, Mebel Mebel)
+        private Mebel CreateModel(MebelBindingModel model, Mebel mebel)
         {
-            Mebel.Name = model.Name;
-            return Mebel;
+            mebel.Name = model.Name;
+            mebel.Price = model.Price;
+            return mebel;
         }
 	}
 }

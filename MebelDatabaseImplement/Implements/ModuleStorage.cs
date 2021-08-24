@@ -146,7 +146,7 @@ namespace MebelDatabaseImplement.Implements
         private Module CreateModel(ModuleBindingModel model, Module module, MebelDatabase context)
         {
             module.Price = model.Price;
-            module.Name = module.Name;
+            module.Name = model.Name;
 
             if (module.Id == 0)
             {

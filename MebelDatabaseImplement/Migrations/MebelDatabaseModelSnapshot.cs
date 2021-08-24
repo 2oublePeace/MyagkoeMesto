@@ -85,6 +85,9 @@ namespace MebelDatabaseImplement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Mebel");
@@ -179,7 +182,29 @@ namespace MebelDatabaseImplement.Migrations
                     b.ToTable("Providers");
                 });
 
-            modelBuilder.Entity("SecureShopDatabaseImplement.Models.Supply", b =>
+            modelBuilder.Entity("MebelDatabaseImplement.Models.Supply", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Supply");
+                });
+
+            modelBuilder.Entity("MebelDatabaseImplement.Models.SupplyMaterial", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -189,31 +214,19 @@ namespace MebelDatabaseImplement.Migrations
                     b.Property<int>("Count")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateCreate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DateImplement")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("MaterialId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ModuleId")
+                    b.Property<int>("SupplyId")
                         .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Sum")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("MaterialId");
 
-                    b.HasIndex("ModuleId");
+                    b.HasIndex("SupplyId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("SupplyMaterials");
                 });
 
             modelBuilder.Entity("MebelDatabaseImplement.Models.ModuleMaterial", b =>
@@ -246,17 +259,19 @@ namespace MebelDatabaseImplement.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SecureShopDatabaseImplement.Models.Supply", b =>
+            modelBuilder.Entity("MebelDatabaseImplement.Models.SupplyMaterial", b =>
                 {
-                    b.HasOne("MebelDatabaseImplement.Models.Material", null)
-                        .WithMany("Orders")
+                    b.HasOne("MebelDatabaseImplement.Models.Material", "Material")
+                        .WithMany("SupplyMaterials")
                         .HasForeignKey("MaterialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MebelDatabaseImplement.Models.Module", "Module")
-                        .WithMany()
-                        .HasForeignKey("ModuleId");
+                    b.HasOne("MebelDatabaseImplement.Models.Supply", "Supply")
+                        .WithMany("SupplyMaterials")
+                        .HasForeignKey("SupplyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

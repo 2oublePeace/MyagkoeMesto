@@ -2,7 +2,6 @@
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
 using MebelDatabaseImplement.Models;
-using SecureShopDatabaseImplement.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

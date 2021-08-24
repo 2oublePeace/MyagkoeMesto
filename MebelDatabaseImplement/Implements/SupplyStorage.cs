@@ -1,7 +1,8 @@
 ﻿using MebelBusinessLogic.BindingModels;
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
-using SecureShopDatabaseImplement.Models;
+using MebelDatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,10 @@ namespace MebelDatabaseImplement.Implements
         {
             using (var context = new MebelDatabase())
             {
-                return context.Orders
-                    .Select(rec => new SupplyViewModel
-                    {
-                        Id = rec.Id,
-                        ModuleName = rec.Module.Name,
-                        MaterialId = rec.MaterialId,
-                        Count = rec.Count,
-                        Sum = rec.Sum,
-                        Status = rec.Status,
-                        DateCreate = rec.DateCreate,
-                        DateImplement = rec.DateImplement
-                    })
+                return context.Supplys
+                    .Include(rec => rec.SupplyMaterials)
+                    .ThenInclude(rec => rec.Material)
+                    .Select(CreateModel)
                     .ToList();
             }
         }
@@ -36,100 +29,148 @@ namespace MebelDatabaseImplement.Implements
             {
                 return null;
             }
-
             using (var context = new MebelDatabase())
             {
-                return context.Orders
-                    .Where(rec => rec.DateCreate >= model.DateFrom && rec.DateCreate <= model.DateTo)
-                .Select(rec => new SupplyViewModel
-                {
-                    Id = rec.Id,
-                    ModuleName = rec.Module.Name,
-                    MaterialId = rec.MaterialId,
-                    Count = rec.Count,
-                    Sum = rec.Sum,
-                    Status = rec.Status,
-                    DateCreate = rec.DateCreate,
-                    DateImplement = rec.DateImplement
-                })
-                    .ToList();
+                return context.Supplys
+                    .Include(rec => rec.SupplyMaterials)
+                    .ThenInclude(rec => rec.Material)
+                    .Where(rec => rec.Date >= model.DateFrom && rec.Date <= model.DateTo)
+                    .Select(CreateModel).ToList();
             }
         }
+
         public SupplyViewModel GetElement(SupplyBindingModel model)
         {
             if (model == null)
             {
                 return null;
             }
-
             using (var context = new MebelDatabase())
             {
-                var supply = context.Orders
+                var receipt = context.Supplys
+                    .Include(rec => rec.SupplyMaterials)
+                    .ThenInclude(rec => rec.Material)
                     .FirstOrDefault(rec => rec.Id == model.Id);
-
-                return supply != null ?
-                    new SupplyViewModel
-                    {
-                        Id = supply.Id,
-                        ModuleName = context.Modules.FirstOrDefault(rec => rec.Id == supply.MaterialId)?.Name,
-                        MaterialId = supply.MaterialId,
-                        Count = supply.Count,
-                        Sum = supply.Sum,
-                        Status = supply.Status,
-                        DateCreate = supply.DateCreate,
-                        DateImplement = supply.DateImplement
-                    } :
-                    null;
+                return receipt != null ?
+                CreateModel(receipt) : null;
             }
         }
+
         public void Insert(SupplyBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                context.Orders.Add(CreateModel(model, new Supply()));
-                context.SaveChanges();
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        CreateModel(model, new Supply(), context);
+                        context.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
             }
         }
+
         public void Update(SupplyBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                var supply = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-
-                if (supply == null)
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    throw new Exception("Заказ не найден");
-                }
+                    try
+                    {
+                        var receipt = context.Supplys.FirstOrDefault(rec => rec.Id == model.Id);
 
-                CreateModel(model, supply);
-                context.SaveChanges();
+                        if (receipt == null)
+                        {
+                            throw new Exception("Поставка не найдена");
+                        }
+
+                        CreateModel(model, receipt, context);
+                        context.SaveChanges();
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
             }
         }
+
         public void Delete(SupplyBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                var supply = context.Orders.FirstOrDefault(rec => rec.Id == model.Id);
-
-                if (supply == null)
+                Supply element = context.Supplys.FirstOrDefault(rec => rec.Id == model.Id);
+                if (element != null)
                 {
-                    throw new Exception("Заказ не найден");
+                    context.Supplys.Remove(element);
+                    context.SaveChanges();
                 }
-
-                context.Orders.Remove(supply);
-                context.SaveChanges();
+                else
+                {
+                    throw new Exception("Поступление не найдено");
+                }
             }
         }
-        private Supply CreateModel(SupplyBindingModel model, Supply supply)
-        {
-            supply.MaterialId = model.MaterialId;
-            supply.Sum = model.Sum;
-            supply.Count = model.Count;
-            supply.Status = model.Status;
-            supply.DateCreate = model.DateCreate;
-            supply.DateImplement = model.DateImplement;
 
-            return supply;
+        private Supply CreateModel(SupplyBindingModel model, Supply receipt, MebelDatabase context)
+        {
+            receipt.Date = model.Date;
+            receipt.Name = model.Name;
+            receipt.Price = model.Price;
+
+            if (receipt.Id == 0)
+            {
+                context.Supplys.Add(receipt);
+                context.SaveChanges();
+            }
+
+            if (model.Id.HasValue)
+            {
+                var supplyMaterials = context.SupplyMaterials
+                     .Where(rec => rec.SupplyId == model.Id.Value)
+                     .ToList();
+
+                context.SupplyMaterials.RemoveRange(supplyMaterials.ToList());
+
+                context.SaveChanges();
+            }
+
+            foreach (var supplyMaterial in model.SupplyMaterials)
+            {
+                context.SupplyMaterials.Add(new SupplyMaterial
+                {
+                    SupplyId = receipt.Id,
+                    MaterialId = supplyMaterial.Key,
+                    Count = supplyMaterial.Value.Item2
+                });
+                context.SaveChanges();
+            }
+            return receipt;
+        }
+
+        private SupplyViewModel CreateModel(Supply supply)
+        {
+            return new SupplyViewModel
+            {
+                Id = supply.Id,
+                Date = supply.Date,
+                Name = supply.Name,
+                Price = supply.Price,
+                SupplyMaterials = supply.SupplyMaterials
+                            .ToDictionary(recSupplyMaterials => recSupplyMaterials.MaterialId,
+                            recSupplyMaterials => (recSupplyMaterials.Material?.Name, recSupplyMaterials.Count)),
+            };
         }
     }
 }

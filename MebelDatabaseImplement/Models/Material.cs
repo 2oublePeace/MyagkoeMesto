@@ -1,5 +1,4 @@
-﻿using SecureShopDatabaseImplement.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,6 +21,6 @@ namespace MebelDatabaseImplement.Models
 		public virtual List<ModuleMaterial> ModuleMaterials { get; set; }
 
 		[ForeignKey("MaterialId")]
-		public virtual List<Supply> Orders { get; set; }
+		public virtual List<SupplyMaterial> SupplyMaterials { get; set; }
 	}
 }

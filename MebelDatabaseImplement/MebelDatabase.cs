@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MebelDatabaseImplement.Models;
-using SecureShopDatabaseImplement.Models;
 
 namespace MebelDatabaseImplement
 {
@@ -9,7 +8,7 @@ namespace MebelDatabaseImplement
 		/*public MebelDatabase()
 		{
 			Database.EnsureDeleted();   // удаляем бд со старой схемой
-			Database.EnsureCreated();   // создаем бд с новой схемой
+			//Database.EnsureCreated();   // создаем бд с новой схемой
 		}*/
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -30,5 +29,7 @@ namespace MebelDatabaseImplement
 		public virtual DbSet<Module> Modules { set; get; }
 		public virtual DbSet<ModuleMaterial> ModuleMaterials { set; get; }
 		public virtual DbSet<ModuleMebel> ModuleMebels { set; get; }
+		public virtual DbSet<Supply> Supplys { set; get; }
+		public virtual DbSet<SupplyMaterial> SupplyMaterials { set; get; }
 	}
 }

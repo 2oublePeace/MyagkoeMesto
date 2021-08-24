@@ -65,11 +65,11 @@ namespace MebelBusinessLogic.BusinessLogics
 			})
 			.Select(x => new ReportOrdersViewModel
 			{
-				DateCreate = x.DateCreate,
+				/*DateCreate = x.DateCreate,
 				ModuleName = x.ModuleName,
 				Count = x.Count,
 				Sum = x.Sum,
-				Status = x.Status
+				Status = x.Status*/
 			})
 			.ToList();
 		}

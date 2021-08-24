@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MebelCustomerView"
         mc:Ignorable="d"
-        Title="Создание мебели" Height="120" Width="500">
+        Title="Создание материала" Height="180" Width="500">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>
@@ -17,9 +17,13 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="10"/>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -29,8 +33,10 @@
         </Grid.ColumnDefinitions>
 
         <Label Content="Название мебели: " Grid.Column="0" />
-        <TextBox Name="tbName" Grid.Column="1" Margin="15,18,15,12" />
-        <Button Name="btnAdd" Grid.Row="1" Grid.Column="0" Content="Добавить" Click="btnAdd_Click"/>
-        <Button Name="btnCancel" Grid.Row="1" Grid.Column="1" Content="Отменить" Click="btnCancel_Click"/>
+        <TextBox Name="tbName" Grid.Column="1" />
+        <Label Content="Цена мебели: " Grid.Row="1" Grid.Column="0" />
+        <TextBox Name="tbPrice" Grid.Row="1" Grid.Column="1" />
+        <Button Name="btnAdd" Grid.Row="2" Grid.Column="0" Content="Добавить" Click="btnAdd_Click"/>
+        <Button Name="btnCancel" Grid.Row="2" Grid.Column="1" Content="Отменить" Click="btnCancel_Click"/>
     </Grid>
 </Window>

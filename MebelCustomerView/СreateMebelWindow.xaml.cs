@@ -35,6 +35,7 @@ namespace MebelCustomerView
                 {
                     Id = id,
                     Name = tbName.Text,
+                    Price = Convert.ToDecimal(tbPrice.Text)
                 });
                 MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;

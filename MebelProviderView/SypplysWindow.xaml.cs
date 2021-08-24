@@ -8,20 +8,20 @@ using System.Windows;
 using System.Windows.Controls;
 using Unity;
 
-namespace MebelCustomerView
+namespace MebelProviderView
 {
 	/// <summary>
-	/// Логика взаимодействия для MaterialsWindow.xaml
+	/// Логика взаимодействия для SypplysWindow.xaml
 	/// </summary>
-	public partial class MaterialsWindow : Window
+	public partial class SypplysWindow : Window
 	{
         [Dependency]
         public new IUnityContainer Container { get; set; }
-        MaterialLogic _logic;
+        SupplyLogic _logic;
         public int Id { set { id = value; } }
         private int? id;
 
-        public MaterialsWindow(MaterialLogic logic)
+        public SypplysWindow(SupplyLogic logic)
         {
             InitializeComponent();
             _logic = logic;
@@ -41,18 +41,18 @@ namespace MebelCustomerView
                 {
                     DataGridView.ItemsSource = list;
                     DataGridView.Columns[0].Visibility = Visibility.Hidden;
+                    DataGridView.Columns[4].Visibility = Visibility.Hidden;
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-               MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<CreateMaterialWindow>();
+            var window = Container.Resolve<CreateSupplyWindow>();
             window.ShowDialog();
             if (window.DialogResult == true)
             {
@@ -64,21 +64,19 @@ namespace MebelCustomerView
         {
             if (DataGridView.SelectedIndex != -1)
             {
-                MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo,
-               MessageBoxImage.Question);
+                MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    MaterialViewModel material = (MaterialViewModel)DataGridView.SelectedCells[0].Item;
+                    SupplyViewModel material = (SupplyViewModel)DataGridView.SelectedCells[0].Item;
                     int id = Convert.ToInt32(material.Id);
                     try
                     {
-                        _logic.Delete(new MaterialBindingModel { Id = id });
+                        _logic.Delete(new SupplyBindingModel { Id = id });
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-                       MessageBoxImage.Error);
+                        MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                     LoadData();
                 }
@@ -89,8 +87,8 @@ namespace MebelCustomerView
         {
             if (DataGridView.SelectedIndex != -1)
             {
-                var window = Container.Resolve<CreateMebelWindow>();
-                GarnitureViewModel garniture = (GarnitureViewModel)DataGridView.SelectedCells[0].Item;
+                var window = Container.Resolve<CreateSupplyWindow>();
+                SupplyViewModel garniture = (SupplyViewModel)DataGridView.SelectedCells[0].Item;
                 window.Id = Convert.ToInt32(garniture.Id);
                 window.ShowDialog();
                 if (window.DialogResult == true)

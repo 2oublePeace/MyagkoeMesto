@@ -27,6 +27,9 @@ namespace MebelProviderView
             currentContainer.RegisterType<IMebelStorage, MebelStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<MebelLogic>(new HierarchicalLifetimeManager());
 
+            currentContainer.RegisterType<ISupplyStorage, SupplyStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<SupplyLogic>(new HierarchicalLifetimeManager());
+
             return currentContainer;
         }
 
