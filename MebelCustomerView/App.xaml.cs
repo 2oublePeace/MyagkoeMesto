@@ -1,4 +1,5 @@
-﻿using MebelBusinessLogic.BusinessLogics;
+﻿using MebelBusinessLogic.BusinessLogic;
+using MebelBusinessLogic.BusinessLogics;
 using MebelBusinessLogic.Interfaces;
 using MebelDatabaseImplement.Implements;
 using System.Windows;
@@ -23,6 +24,12 @@ namespace MebelCustomerView
 
             currentContainer.RegisterType<IGarnitureStorage, GarnitureStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<GarnitureLogic>(new HierarchicalLifetimeManager());
+
+            currentContainer.RegisterType<ISupplyStorage, SupplyStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<SupplyLogic>(new HierarchicalLifetimeManager());
+
+            currentContainer.RegisterType<IMaterialStorage, MaterialStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<MaterialLogic>(new HierarchicalLifetimeManager());
 
 
             return currentContainer;

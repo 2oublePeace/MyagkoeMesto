@@ -10,7 +10,7 @@ namespace MebelBusinessLogic.BusinessLogic
 {
 	class SaveToPdf
 	{
-		public static void CreateDoc(PdfInfo info)
+		public static void CreateDoc(PdfInfoForProvider info)
 		{
 			Document document = new Document();
 			DefineStyles(document);
@@ -37,7 +37,7 @@ namespace MebelBusinessLogic.BusinessLogic
 				Style = "NormalTitle",
 				ParagraphAlignment = ParagraphAlignment.Center
 			});
-			foreach (var supply in info.Orders)
+			/*foreach (var supply in info.Orders)
 			{
 				CreateRow(new PdfRowParameters
 				{
@@ -46,7 +46,7 @@ namespace MebelBusinessLogic.BusinessLogic
 					Style = "Normal",
 					ParagraphAlignment = ParagraphAlignment.Left
 				});
-			}
+			}*/
 			PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
 			{
 				Document = document

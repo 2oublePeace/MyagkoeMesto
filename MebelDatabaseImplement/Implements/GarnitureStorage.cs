@@ -2,6 +2,7 @@
 using MebelBusinessLogic.Interfaces;
 using MebelBusinessLogic.ViewModels;
 using MebelDatabaseImplement.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,12 +16,10 @@ namespace MebelDatabaseImplement.Implements
             using (var context = new MebelDatabase())
             {
                 return context.Garniture
-                .Select(rec => new GarnitureViewModel
-                {
-                    Id = rec.Id,
-                    Name = rec.Name
-                })
-               .ToList();
+                    .Include(rec => rec.GarnitureMaterial)
+                    .Include(rec => rec.GarnitureMebel)
+                    .Select(CreateModel)
+                    .ToList();
             }
         }
         public List<GarnitureViewModel> GetFilteredList(GarnitureBindingModel model)
@@ -29,16 +28,15 @@ namespace MebelDatabaseImplement.Implements
             {
                 return null;
             }
+
             using (var context = new MebelDatabase())
             {
                 return context.Garniture
-                .Where(rec => rec.Name.Contains(model.Name))
-                .Select(rec => new GarnitureViewModel
-                {
-                    Id = rec.Id,
-                    Name = rec.Name
-                })
-                .ToList();
+                     .Include(rec => rec.GarnitureMaterial)
+                    .Include(rec => rec.GarnitureMebel)
+                    .Where(rec => rec.Id == model.Id)
+                    .Select(CreateModel)
+                    .ToList();
             }
         }
         public GarnitureViewModel GetElement(GarnitureBindingModel model)
@@ -47,60 +45,154 @@ namespace MebelDatabaseImplement.Implements
             {
                 return null;
             }
+
             using (var context = new MebelDatabase())
             {
-                var component = context.Garniture
-                .FirstOrDefault(rec => rec.Name == model.Name || rec.Id == model.Id);
-                return component != null ?
-                new GarnitureViewModel
-                {
-                    Id = component.Id,
-                    Name = component.Name
-                } :
-                null;
+                var module = context.Garniture
+                    .Include(rec => rec.GarnitureMaterial)
+                    .ThenInclude(rec => rec.Material)
+                    .Include(rec => rec.GarnitureMebel)
+                    .ThenInclude(rec => rec.Mebel)
+                    .FirstOrDefault(rec => rec.Id == model.Id);
+
+                return module != null ?
+                    CreateModel(module) :
+                    null;
             }
         }
         public void Insert(GarnitureBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                context.Garniture.Add(CreateModel(model, new Garniture()));
-                context.SaveChanges();
+                using (var transaction = context.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        CreateModel(model, new Garniture(), context);
+                        context.SaveChanges();
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
             }
         }
         public void Update(GarnitureBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                var element = context.Garniture.FirstOrDefault(rec => rec.Id == model.Id);
-                if (element == null)
+                using (var transaction = context.Database.BeginTransaction())
                 {
-                    throw new Exception("Элемент не найден");
+                    try
+                    {
+                        var module = context.Garniture.FirstOrDefault(rec => rec.Id == model.Id);
+
+                        if (module == null)
+                        {
+                            throw new Exception("Рецепт не найден");
+                        }
+
+                        CreateModel(model, module, context);
+                        context.SaveChanges();
+
+                        transaction.Commit();
+                    }
+                    catch
+                    {
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
-                CreateModel(model, element);
-                context.SaveChanges();
             }
         }
         public void Delete(GarnitureBindingModel model)
         {
             using (var context = new MebelDatabase())
             {
-                Garniture element = context.Garniture.FirstOrDefault(rec => rec.Id == model.Id);
-                if (element != null)
+                var module = context.Garniture.FirstOrDefault(rec => rec.Id == model.Id);
+
+                if (module == null)
                 {
-                    context.Garniture.Remove(element);
-                    context.SaveChanges();
+                    throw new Exception("Рецепт не найден");
                 }
-                else
-                {
-                    throw new Exception("Элемент не найден");
-                }
+
+                context.Garniture.Remove(module);
+                context.SaveChanges();
             }
         }
-        private Garniture CreateModel(GarnitureBindingModel model, Garniture garniture)
+        private GarnitureViewModel CreateModel(Garniture module)
         {
-            garniture.Name = model.Name;
-            return garniture;
+            return new GarnitureViewModel
+            {
+                Id = module.Id,
+                Name = module.Name,
+                Price = module.Price,
+
+
+                GarnitureMebels = module.GarnitureMebel
+                            .ToDictionary(recGarnitureMebels => recGarnitureMebels.MebelId,
+                            recGarnitureMebels => (recGarnitureMebels.Mebel?.Name, recGarnitureMebels.Count)),
+                GarnitureMaterials = module.GarnitureMaterial
+                            .ToDictionary(recGarnitureMaterials => recGarnitureMaterials.MaterialId,
+                            recGarnitureMaterials => (recGarnitureMaterials.Material?.Name, recGarnitureMaterials.Count))
+
+            };
+
         }
-	}
+
+        private Garniture CreateModel(GarnitureBindingModel model, Garniture module, MebelDatabase context)
+        {
+            module.Price = model.Price;
+            module.Name = model.Name;
+
+            if (module.Id == 0)
+            {
+                context.Garniture.Add(module);
+                context.SaveChanges();
+            }
+
+            if (model.Id.HasValue)
+            {
+                var moduleMebels = context.GarnitureMebels
+                    .Where(rec => rec.GarnitureId == model.Id.Value)
+                    .ToList();
+
+                context.GarnitureMebels.RemoveRange(moduleMebels.ToList());
+
+                var moduleMaterials = context.GarnitureMaterials
+                    .Where(rec => rec.GarnitureId == model.Id.Value)
+                    .ToList();
+
+                context.GarnitureMaterials.RemoveRange(moduleMaterials.ToList());
+
+                context.SaveChanges();
+            }
+
+            foreach (var moduleMebel in model.GarnitureMebels)
+            {
+                context.GarnitureMebels.Add(new GarnitureMebel
+                {
+                    GarnitureId = module.Id,
+                    MebelId = moduleMebel.Key,
+                    Count = moduleMebel.Value.Item2
+                });
+                context.SaveChanges();
+            }
+
+            foreach (var moduleMaterials in model.GarnitureMaterials)
+            {
+                context.GarnitureMaterials.Add(new GarnitureMaterial
+                {
+                    GarnitureId = module.Id,
+                    MaterialId = moduleMaterials.Key,
+                    Count = moduleMaterials.Value.Item2
+                });
+                context.SaveChanges();
+            }
+            return module;
+        }
+    }
 }

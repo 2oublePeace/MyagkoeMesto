@@ -13,7 +13,7 @@ namespace MebelBusinessLogic.BusinessLogics
 {
 	static class SaveToExcel
 	{
-		public static void CreateDoc(ExcelInfo info)
+		public static void CreateDoc(ExcelWordInfoForProvider info)
 		{
 			using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(info.FileName, SpreadsheetDocumentType.Workbook))
 			{
@@ -66,7 +66,7 @@ namespace MebelBusinessLogic.BusinessLogics
 				});
 
 				uint rowIndex = 2;
-				foreach (var eq in info.ModuleMaterials)
+				/*foreach (var eq in info.ModuleMaterials)
 				{
 					InsertCellInWorksheet(new ExcelCellParameters
 					{
@@ -113,7 +113,7 @@ namespace MebelBusinessLogic.BusinessLogics
 					});
 					rowIndex++;
 				}
-				workbookpart.Workbook.Save();
+				workbookpart.Workbook.Save();*/
 			}
 		}
 

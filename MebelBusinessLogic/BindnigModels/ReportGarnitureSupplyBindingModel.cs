@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace MebelBusinessLogic.BindingModels
+namespace MebelBusinessLogic.BindnigModels
 {
-	public class ReportBindingModel
+	public class ReportGarnitureSupplyBindingModel
 	{
 		public string FileName { get; set; }
+		public int ProviderId { get; set; }
 		public DateTime? DateFrom { get; set; }
 		public DateTime? DateTo { get; set; }
 	}
 }
-

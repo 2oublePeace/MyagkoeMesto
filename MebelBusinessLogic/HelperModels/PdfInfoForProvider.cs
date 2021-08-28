@@ -5,11 +5,13 @@ using System.Text;
 
 namespace MebelBusinessLogic.HelperModels
 {
-	class ExcelInfo
+	class PdfInfoForProvider
 	{
 		public string FileName { get; set; }
 		public string Title { get; set; }
-		//public List<ReportModuleMaterialViewModel> ModuleMaterials { get; set; }
+		public DateTime DateFrom { get; set; }
+		public DateTime DateTo { get; set; }
+		public List<ReportGarnitureSupplyViewModel> Supplys { get; set; }
 	}
 }
 

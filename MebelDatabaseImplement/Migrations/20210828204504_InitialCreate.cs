@@ -27,7 +27,8 @@ namespace MebelDatabaseImplement.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: false),
+                    Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -103,6 +104,60 @@ namespace MebelDatabaseImplement.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Supply", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GarnitureMaterials",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GarnitureId = table.Column<int>(nullable: false),
+                    MaterialId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GarnitureMaterials", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GarnitureMaterials_Garniture_GarnitureId",
+                        column: x => x.GarnitureId,
+                        principalTable: "Garniture",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GarnitureMaterials_Materials_MaterialId",
+                        column: x => x.MaterialId,
+                        principalTable: "Materials",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GarnitureMebels",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    GarnitureId = table.Column<int>(nullable: false),
+                    MebelId = table.Column<int>(nullable: false),
+                    Count = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GarnitureMebels", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GarnitureMebels_Garniture_GarnitureId",
+                        column: x => x.GarnitureId,
+                        principalTable: "Garniture",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_GarnitureMebels_Mebel_MebelId",
+                        column: x => x.MebelId,
+                        principalTable: "Mebel",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -187,6 +242,26 @@ namespace MebelDatabaseImplement.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_GarnitureMaterials_GarnitureId",
+                table: "GarnitureMaterials",
+                column: "GarnitureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GarnitureMaterials_MaterialId",
+                table: "GarnitureMaterials",
+                column: "MaterialId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GarnitureMebels_GarnitureId",
+                table: "GarnitureMebels",
+                column: "GarnitureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GarnitureMebels_MebelId",
+                table: "GarnitureMebels",
+                column: "MebelId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ModuleMaterials_MaterialId",
                 table: "ModuleMaterials",
                 column: "MaterialId");
@@ -223,7 +298,10 @@ namespace MebelDatabaseImplement.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Garniture");
+                name: "GarnitureMaterials");
+
+            migrationBuilder.DropTable(
+                name: "GarnitureMebels");
 
             migrationBuilder.DropTable(
                 name: "ModuleMaterials");
@@ -236,6 +314,9 @@ namespace MebelDatabaseImplement.Migrations
 
             migrationBuilder.DropTable(
                 name: "SupplyMaterials");
+
+            migrationBuilder.DropTable(
+                name: "Garniture");
 
             migrationBuilder.DropTable(
                 name: "Mebel");

@@ -28,7 +28,9 @@ namespace MebelDatabaseImplement
 		public virtual DbSet<Material> Materials { set; get; }
 		public virtual DbSet<Module> Modules { set; get; }
 		public virtual DbSet<ModuleMaterial> ModuleMaterials { set; get; }
+		public virtual DbSet<GarnitureMaterial> GarnitureMaterials { set; get; }
 		public virtual DbSet<ModuleMebel> ModuleMebels { set; get; }
+		public virtual DbSet<GarnitureMebel> GarnitureMebels { set; get; }
 		public virtual DbSet<Supply> Supplys { set; get; }
 		public virtual DbSet<SupplyMaterial> SupplyMaterials { set; get; }
 	}

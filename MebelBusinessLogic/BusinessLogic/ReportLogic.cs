@@ -12,7 +12,7 @@ namespace MebelBusinessLogic.BusinessLogics
 {
 	public class ReportLogic
 	{
-		private readonly IMaterialStorage _materialStorage; private readonly IModuleStorage _moduleStorage; private readonly ISupplyStorage _orderStorage;
+		/*private readonly IMaterialStorage _materialStorage; private readonly IModuleStorage _moduleStorage; private readonly ISupplyStorage _orderStorage;
 		public ReportLogic(IModuleStorage moduleStorage, IMaterialStorage materialStorage, ISupplyStorage orderStorage)
 		{
 			_moduleStorage = moduleStorage;
@@ -56,7 +56,7 @@ namespace MebelBusinessLogic.BusinessLogics
 		/// </summary>
 		/// <param name="model"></param>
 		/// <returns></returns>
-		public List<ReportOrdersViewModel> GetOrders(ReportBindingModel model)
+		public List<ReportOrdersViewModel> GetOrders(ReportSupplyBindingModel model)
 		{
 			return _orderStorage.GetFilteredList(new SupplyBindingModel
 			{
@@ -65,11 +65,11 @@ namespace MebelBusinessLogic.BusinessLogics
 			})
 			.Select(x => new ReportOrdersViewModel
 			{
-				/*DateCreate = x.DateCreate,
+				*//*DateCreate = x.DateCreate,
 				ModuleName = x.ModuleName,
 				Count = x.Count,
 				Sum = x.Sum,
-				Status = x.Status*/
+				Status = x.Status*//*
 			})
 			.ToList();
 		}
@@ -77,7 +77,7 @@ namespace MebelBusinessLogic.BusinessLogics
 		/// Сохранение компонент в файл-Word
 		/// </summary>
 		/// <param name="model"></param>
-		public void SaveMaterialsToWordFile(ReportBindingModel model)
+		public void SaveMaterialsToWordFile(ReportSupplyBindingModel model)
 		{
 			SaveToWord.CreateDoc(new WordInfo
 			{
@@ -90,7 +90,7 @@ namespace MebelBusinessLogic.BusinessLogics
 		/// Сохранение компонент с указаеним продуктов в файл-Excel
 		/// </summary>
 		/// <param name="model"></param>
-		public void SaveModuleMaterialToExcelFile(ReportBindingModel model)
+		public void SaveModuleMaterialToExcelFile(ReportSupplyBindingModel model)
 		{
 			SaveToExcel.CreateDoc(new ExcelInfo
 			{
@@ -104,7 +104,7 @@ namespace MebelBusinessLogic.BusinessLogics
 		/// Сохранение заказов в файл-Pdf
 		/// </summary>
 		/// <param name="model"></param>
-		public void SaveOrdersToPdfFile(ReportBindingModel model)
+		public void SaveOrdersToPdfFile(ReportSupplyBindingModel model)
 		{
 			SaveToPdf.CreateDoc(new PdfInfo
 			{
@@ -114,6 +114,6 @@ namespace MebelBusinessLogic.BusinessLogics
 				DateTo = model.DateTo.Value,
 				Orders = GetOrders(model)
 			});
-		}
+		}*/
 	}
 }
