@@ -45,9 +45,9 @@ namespace MebelProviderView
 
 					if (view != null)
 					{
-						tbModulePrice.Text = view.Price.ToString();
+						tbSupplyPrice.Text = view.Price.ToString();
                         sum = view.Price;
-						tbModuleName.Text = view.Name;
+						tbSupplyName.Text = view.Name;
 						supplyMaterials = view.SupplyMaterials;
 						LoadData();
 					}
@@ -76,9 +76,9 @@ namespace MebelProviderView
                         list.Add(new ModuleMaterialViewModel { Id = material.Key, MaterialName = material.Value.Item1, MaterialCount = material.Value.Item2 });
                     }
 
-                    tbModulePrice.Text = sum.ToString();
-                    dgReceiptMedicine.ItemsSource = list;
-                    dgReceiptMedicine.Columns[0].Visibility = Visibility.Hidden;
+                    tbSupplyPrice.Text = sum.ToString();
+                    dgSupplyMaterials.ItemsSource = list;
+                    dgSupplyMaterials.Columns[0].Visibility = Visibility.Hidden;
                 }
             }
             catch (Exception ex)
@@ -94,9 +94,9 @@ namespace MebelProviderView
 				_logicSupply.CreateOrUpdate(new SupplyBindingModel
 				{
 					Id = id,
-					Name = tbModuleName.Text,
+					Name = tbSupplyName.Text,
                     Date = DateTime.Now,
-					Price = Convert.ToDecimal(tbModulePrice.Text),
+					Price = Convert.ToDecimal(tbSupplyPrice.Text),
                     SupplyMaterials = supplyMaterials
 				});
 				MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -133,13 +133,13 @@ namespace MebelProviderView
 
         private void btnDeleteMaterial_Click(object sender, RoutedEventArgs e)
         {
-            if (dgReceiptMedicine.SelectedIndex != -1)
+            if (dgSupplyMaterials.SelectedIndex != -1)
             {
                 MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    ModuleMaterialViewModel material = (ModuleMaterialViewModel)dgReceiptMedicine.SelectedCells[0].Item;
+                    ModuleMaterialViewModel material = (ModuleMaterialViewModel)dgSupplyMaterials.SelectedCells[0].Item;
                     try
                     {
                         supplyMaterials.Remove(material.Id);

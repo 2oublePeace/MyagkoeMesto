@@ -14,9 +14,6 @@ using MebelBusinessLogic.BindnigModels;
 
 namespace MebelProviderView
 {
-    /// <summary>
-    /// Логика взаимодействия для WindowReportProcedureReceipt.xaml
-    /// </summary>
     public partial class ReportSupplysWindow : Window
     {
         public new IUnityContainer Container { get; set; }
@@ -28,6 +25,7 @@ namespace MebelProviderView
             InitializeComponent();
             _logic = logic;
         }
+
         private void ReportViewer_Load(object sender, EventArgs e)
         {
             reportViewer.LocalReport.ReportPath = "../../Report.rdlc";
@@ -52,8 +50,7 @@ namespace MebelProviderView
             }
             if (!Regex.IsMatch(tbEmailAddress.Text, @"^[A-Za-z0-9]+(?:[._%+-])?[A-Za-z0-9._-]+[A-Za-z0-9]@[A-Za-z0-9]+(?:[.-])?[A-Za-z0-9._-]+\.[A-Za-z]{2,6}$"))
             {
-                MessageBox.Show("Неверный формат Email адреса",
-               "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Неверный формат Email адреса", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             MailMessage msg = new MailMessage();
@@ -98,15 +95,13 @@ namespace MebelProviderView
                         client.DeliveryMethod = SmtpDeliveryMethod.Network;
                         client.Send(msg);
 
-                        MessageBox.Show("Сообщение отправлено", "Успех",
-                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Сообщение отправлено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -138,14 +133,13 @@ namespace MebelProviderView
                     DateFrom = dpFrom.SelectedDate,
                     DateTo = dpTo.SelectedDate
                 });
-                ReportDataSource source = new ReportDataSource("DataSetProcedureReceipt", dataSource);
+                ReportDataSource source = new ReportDataSource("DataSetSupplys", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-               MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
         }

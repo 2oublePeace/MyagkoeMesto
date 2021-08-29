@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MebelProviderView"
         mc:Ignorable="d"
-        Title="RegistrationWindow" Height="300" Width="650">
+        Title="RegistrationWindow" Height="180" Width="650">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>

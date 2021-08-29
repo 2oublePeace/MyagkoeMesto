@@ -48,6 +48,8 @@ namespace MebelBusinessLogic.BusinessLogic
                                 list.Add(new ReportSupplyViewModel
                                 {
                                     Date = supply.Date,
+                                    SupplyName = supply.Name,
+                                    SupplyPrice = supply.Price.ToString(),
                                     GarnitureName = garniture.Name
                                 });
                             }

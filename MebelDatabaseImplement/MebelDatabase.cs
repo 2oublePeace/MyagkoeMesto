@@ -8,7 +8,7 @@ namespace MebelDatabaseImplement
 		/*public MebelDatabase()
 		{
 			Database.EnsureDeleted();   // удаляем бд со старой схемой
-										//Database.EnsureCreated();   // создаем бд с новой схемой
+			//Database.EnsureCreated();   // создаем бд с новой схемой
 		}*/
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
