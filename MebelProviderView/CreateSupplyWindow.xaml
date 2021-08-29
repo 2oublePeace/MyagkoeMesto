@@ -41,8 +41,8 @@
 
         <DataGrid Name="dgReceiptMedicine" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True" />
         <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Height="120">
-            <Button Name="AddMedicine" Margin="20" Content="Добавить лекарство" Click="btnAddMaterial_Click"/>
-            <Button Name="btnDeleteMedicine" Margin="20" Content="Удалить лекарство" Click="btnDeleteMaterial_Click"/>
+            <Button Name="AddMaterial" Margin="20" Content="Добавить материал" Click="btnAddMaterial_Click"/>
+            <Button Name="btnDeleteMedicine" Margin="20" Content="Удалить материал" Click="btnDeleteMaterial_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Height="40">

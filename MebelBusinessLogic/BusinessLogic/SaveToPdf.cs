@@ -10,7 +10,7 @@ namespace MebelBusinessLogic.BusinessLogic
 {
 	class SaveToPdf
 	{
-		public static void CreateDoc(PdfInfoForProvider info)
+		public static void CreateDoc(PdfProviderInfo info)
 		{
 			Document document = new Document();
 			DefineStyles(document);

@@ -37,6 +37,8 @@ namespace MebelProviderView
             currentContainer.RegisterType<IGarnitureStorage, GarnitureStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<GarnitureLogic>(new HierarchicalLifetimeManager());
 
+            currentContainer.RegisterType<ReportSupplyLogic>(new HierarchicalLifetimeManager());
+
             return currentContainer;
         }
 
