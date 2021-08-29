@@ -29,6 +29,12 @@ namespace MebelCustomerView
             window.Show();
         }
 
+        private void btnShipment_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<ShipmentsWindow>();
+            window.Show();
+        }
+
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WelcomeWindow>();

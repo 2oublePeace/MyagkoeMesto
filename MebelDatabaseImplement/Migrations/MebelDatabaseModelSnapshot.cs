@@ -235,6 +235,53 @@ namespace MebelDatabaseImplement.Migrations
                     b.ToTable("Providers");
                 });
 
+            modelBuilder.Entity("MebelDatabaseImplement.Models.Shipment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Shipments");
+                });
+
+            modelBuilder.Entity("MebelDatabaseImplement.Models.ShipmentGarniture", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("Count")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GarnitureId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ShipmentId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GarnitureId");
+
+                    b.HasIndex("ShipmentId");
+
+                    b.ToTable("ShipmentGarnitures");
+                });
+
             modelBuilder.Entity("MebelDatabaseImplement.Models.Supply", b =>
                 {
                     b.Property<int>("Id")
@@ -338,6 +385,21 @@ namespace MebelDatabaseImplement.Migrations
                     b.HasOne("MebelDatabaseImplement.Models.Module", "Module")
                         .WithMany("ModuleMebel")
                         .HasForeignKey("ModuleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MebelDatabaseImplement.Models.ShipmentGarniture", b =>
+                {
+                    b.HasOne("MebelDatabaseImplement.Models.Garniture", "Garniture")
+                        .WithMany()
+                        .HasForeignKey("GarnitureId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MebelDatabaseImplement.Models.Shipment", "Shipment")
+                        .WithMany("ShipmentGarnitures")
+                        .HasForeignKey("ShipmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

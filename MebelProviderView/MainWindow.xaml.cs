@@ -35,6 +35,12 @@ namespace MebelProviderView
             window.Show();
         }
 
+        private void btnShipmentList_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<ShipmentListWindow>();
+            window.Show();
+        }
+
         private void btnModules_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<ModulesWindow>();

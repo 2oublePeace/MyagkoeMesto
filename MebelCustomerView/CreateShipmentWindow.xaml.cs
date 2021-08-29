@@ -1,35 +1,45 @@
-﻿using MebelBusinessLogic.BindingModels;
+﻿using MebelBusinessLogic.BindnigModels;
+using MebelBusinessLogic.BusinessLogic;
 using MebelBusinessLogic.BusinessLogics;
 using MebelBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using Unity;
 
-namespace MebelProviderView
+namespace MebelCustomerView
 {
 	/// <summary>
-	/// Логика взаимодействия для CreateSupplyWindow.xaml
+	/// Логика взаимодействия для CreateShipmentWindow.xaml
 	/// </summary>
-	public partial class CreateSupplyWindow : Window
+	public partial class CreateShipmentWindow : Window
 	{
         [Dependency]
         public new IUnityContainer Container { get; set; }
-        SupplyLogic _logicSupply;
-        MaterialLogic _logicMaterial;
+        ShipmentLogic _logicShipment;
+        GarnitureLogic _logicGarniture;
         public int Id { set { id = value; } }
         private int? id;
         private decimal sum = 0;
-        private Dictionary<int, (string, int)> supplyMaterials;
+        private Dictionary<int, (string, int)> shipmentGarnitures;
 
-        public CreateSupplyWindow(SupplyLogic logicSupply, MaterialLogic logicMaterial)
+        public CreateShipmentWindow(ShipmentLogic logicShipment, GarnitureLogic logicGarniture)
         {
             InitializeComponent();
-            _logicSupply = logicSupply;
-            _logicMaterial = logicMaterial;
+            _logicShipment = logicShipment;
+            _logicGarniture = logicGarniture;
         }
 
         private void Window_loaded(object sender, RoutedEventArgs e)
@@ -38,20 +48,20 @@ namespace MebelProviderView
             {
                 try
                 {
-                    SupplyViewModel view = _logicSupply.Read(new SupplyBindingModel
+                    ShipmentViewModel view = _logicShipment.Read(new ShipmentBindingModel
                     {
                         Id = id.Value
                     })?[0];
 
-					if (view != null)
-					{
-						tbModulePrice.Text = view.Price.ToString();
+                    if (view != null)
+                    {
+                        tbShipmentPrice.Text = view.Price.ToString();
                         sum = view.Price;
-						tbModuleName.Text = view.Name;
-						supplyMaterials = view.SupplyMaterials;
-						LoadData();
-					}
-				}
+                        tbShipmentName.Text = view.Name;
+                        shipmentGarnitures = view.ShipmentGarnitures;
+                        LoadData();
+                    }
+                }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -59,7 +69,7 @@ namespace MebelProviderView
             }
             else
             {
-                supplyMaterials = new Dictionary<int, (string, int)>();
+                shipmentGarnitures = new Dictionary<int, (string, int)>();
             }
         }
 
@@ -67,16 +77,16 @@ namespace MebelProviderView
         {
             try
             {
-                if (supplyMaterials != null)
+                if (shipmentGarnitures != null)
                 {
                     List<ModuleMaterialViewModel> list = new List<ModuleMaterialViewModel>();
 
-                    foreach (var material in supplyMaterials)
+                    foreach (var material in shipmentGarnitures)
                     {
                         list.Add(new ModuleMaterialViewModel { Id = material.Key, MaterialName = material.Value.Item1, MaterialCount = material.Value.Item2 });
                     }
 
-                    tbModulePrice.Text = sum.ToString();
+                    tbShipmentPrice.Text = sum.ToString();
                     dgReceiptMedicine.ItemsSource = list;
                     dgReceiptMedicine.Columns[0].Visibility = Visibility.Hidden;
                 }
@@ -91,15 +101,15 @@ namespace MebelProviderView
         {
             try
             {
-				_logicSupply.CreateOrUpdate(new SupplyBindingModel
-				{
-					Id = id,
-					Name = tbModuleName.Text,
+                _logicShipment.CreateOrUpdate(new ShipmentBindingModel
+                {
+                    Id = id,
+                    Name = tbShipmentName.Text,
                     Date = DateTime.Now,
-					Price = Convert.ToDecimal(tbModulePrice.Text),
-                    SupplyMaterials = supplyMaterials
-				});
-				MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Price = Convert.ToDecimal(tbShipmentPrice.Text),
+                    ShipmentGarnitures = shipmentGarnitures
+                });
+                MessageBox.Show("Сохранение прошло успешно", "Сообщение", MessageBoxButton.OK, MessageBoxImage.Information);
                 this.DialogResult = true;
                 Close();
             }
@@ -116,16 +126,16 @@ namespace MebelProviderView
 
         private void btnAddMaterial_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<AddMaterialWindow>();
+            var window = Container.Resolve<AddGarnitureWindow>();
             window.ShowDialog();
             if (window.DialogResult == true)
             {
-                if (!supplyMaterials.ContainsKey(window.Id))
+                if (!shipmentGarnitures.ContainsKey(window.Id))
                 {
-                    supplyMaterials.Add(window.Id, (window.MaterialName, window.MaterialCount));
+                    shipmentGarnitures.Add(window.Id, (window.GarnitureName, window.GarnitureCount));
                 }
 
-                sum += _logicMaterial.Read(new MaterialBindingModel { Id = window.Id })[0].Price * window.MaterialCount;
+                sum += _logicGarniture.Read(new GarnitureBindingModel { Id = window.Id })[0].Price * window.GarnitureCount;
             }
             LoadData();
         }
@@ -142,14 +152,14 @@ namespace MebelProviderView
                     ModuleMaterialViewModel material = (ModuleMaterialViewModel)dgReceiptMedicine.SelectedCells[0].Item;
                     try
                     {
-                        supplyMaterials.Remove(material.Id);
+                        shipmentGarnitures.Remove(material.Id);
                     }
                     catch (Exception ex)
                     {
                         MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
 
-                    sum -= _logicMaterial.Read(new MaterialBindingModel { Id = material.Id })[0].Price * material.MaterialCount;
+                    sum -= _logicGarniture.Read(new GarnitureBindingModel { Id = material.Id })[0].Price * material.MaterialCount;
                     LoadData();
                 }
             }

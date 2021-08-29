@@ -31,6 +31,8 @@ namespace MebelCustomerView
             currentContainer.RegisterType<IMaterialStorage, MaterialStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<MaterialLogic>(new HierarchicalLifetimeManager());
 
+            currentContainer.RegisterType<IShipmentStorage, ShipmentStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ShipmentLogic>(new HierarchicalLifetimeManager());
 
             return currentContainer;
         }

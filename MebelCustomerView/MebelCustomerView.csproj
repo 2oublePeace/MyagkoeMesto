@@ -158,6 +158,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddGarnitureWindow.xaml.cs">
+      <DependentUpon>AddGarnitureWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AddMaterialWindow.xaml.cs">
       <DependentUpon>AddMaterialWindow.xaml</DependentUpon>
     </Compile>
@@ -166,6 +169,12 @@
     </Compile>
     <Compile Include="CreateGarnitureWindow.xaml.cs">
       <DependentUpon>CreateGarnitureWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CreateShipmentWindow.xaml.cs">
+      <DependentUpon>CreateShipmentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ShipmentsWindow.xaml.cs">
+      <DependentUpon>ShipmentsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="СreateMebelWindow.xaml.cs">
       <DependentUpon>СreateMebelWindow.xaml</DependentUpon>
@@ -185,6 +194,10 @@
     <Compile Include="EntryWindow.xaml.cs">
       <DependentUpon>EntryWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AddGarnitureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="AddMaterialWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -194,6 +207,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="CreateGarnitureWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CreateShipmentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ShipmentsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

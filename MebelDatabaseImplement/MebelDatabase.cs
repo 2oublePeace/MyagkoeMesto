@@ -8,7 +8,7 @@ namespace MebelDatabaseImplement
 		/*public MebelDatabase()
 		{
 			Database.EnsureDeleted();   // удаляем бд со старой схемой
-			//Database.EnsureCreated();   // создаем бд с новой схемой
+										//Database.EnsureCreated();   // создаем бд с новой схемой
 		}*/
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -32,6 +32,8 @@ namespace MebelDatabaseImplement
 		public virtual DbSet<ModuleMebel> ModuleMebels { set; get; }
 		public virtual DbSet<GarnitureMebel> GarnitureMebels { set; get; }
 		public virtual DbSet<Supply> Supplys { set; get; }
+		public virtual DbSet<Shipment> Shipments { set; get; }
 		public virtual DbSet<SupplyMaterial> SupplyMaterials { set; get; }
+		public virtual DbSet<ShipmentGarniture> ShipmentGarnitures { set; get; }
 	}
 }

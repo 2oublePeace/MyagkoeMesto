@@ -1,4 +1,5 @@
-﻿using MebelBusinessLogic.BusinessLogics;
+﻿using MebelBusinessLogic.BusinessLogic;
+using MebelBusinessLogic.BusinessLogics;
 using MebelBusinessLogic.Interfaces;
 using MebelDatabaseImplement.Implements;
 using System.Windows;
@@ -29,6 +30,12 @@ namespace MebelProviderView
 
             currentContainer.RegisterType<ISupplyStorage, SupplyStorage>(new HierarchicalLifetimeManager());
             currentContainer.RegisterType<SupplyLogic>(new HierarchicalLifetimeManager());
+            
+            currentContainer.RegisterType<IShipmentStorage, ShipmentStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<ShipmentLogic>(new HierarchicalLifetimeManager());
+            
+            currentContainer.RegisterType<IGarnitureStorage, GarnitureStorage>(new HierarchicalLifetimeManager());
+            currentContainer.RegisterType<GarnitureLogic>(new HierarchicalLifetimeManager());
 
             return currentContainer;
         }

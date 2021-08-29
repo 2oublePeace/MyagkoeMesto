@@ -1,11 +1,10 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MebelBusinessLogic.BindingModels
+namespace MebelBusinessLogic.BindnigModels
 {
-	public class SupplyBindingModel
+	public class ShipmentBindingModel
 	{
 		public int? Id { get; set; }
 		public decimal Price { get; set; }
@@ -13,6 +12,6 @@ namespace MebelBusinessLogic.BindingModels
 		public DateTime Date { get; set; }
 		public DateTime? DateFrom { get; set; }
 		public DateTime? DateTo { get; set; }
-		public Dictionary<int, (string, int)> SupplyMaterials { get; set; }
+		public Dictionary<int, (string, int)> ShipmentGarnitures { get; set; }
 	}
 }

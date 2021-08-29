@@ -19,7 +19,7 @@
                 <Separator />
                 <MenuItem Header="Exit" ></MenuItem>
             </MenuItem>
-            <MenuItem Header="Отчеты" ></MenuItem>
+            <MenuItem Header="Отчеты" Click="btnShipmentList_Click"></MenuItem>
         </Menu>
         <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="8" Source="Resources\logo.png" Width="350"/>
     </Grid>

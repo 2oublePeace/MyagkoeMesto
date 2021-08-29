@@ -4,7 +4,7 @@ using System.Text;
 
 namespace MebelBusinessLogic.BindnigModels
 {
-	public class ReportGarnitureSupplyBindingModel
+	public class ReportProviderBindingModel
 	{
 		public string FileName { get; set; }
 		public int ProviderId { get; set; }

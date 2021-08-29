@@ -15,6 +15,7 @@
             <MenuItem Header="Справочники">
                 <MenuItem Header="Мебель" Click="btnMebel_Click"></MenuItem>
                 <MenuItem Header="Гарнитуры" Click="btnGarniture_Click"></MenuItem>
+                <MenuItem Header="Отгрузки" Click="btnShipment_Click"></MenuItem>
                 <Separator />
                 <MenuItem Header="Exit" ></MenuItem>
             </MenuItem>

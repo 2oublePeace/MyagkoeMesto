@@ -12,7 +12,7 @@ namespace MebelBusinessLogic.BusinessLogics
 		/// Создание документа
 		/// </summary>
 		/// <param name="info"></param>
-		public static void CreateDoc(ExcelWordInfoForProvider info)
+		public static void CreateDoc(WordProviderInfo info)
 		{
 			using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document))
 			{
@@ -29,11 +29,11 @@ namespace MebelBusinessLogic.BusinessLogics
 					}
 				}));
 
-				foreach (var module in info.Supplys)
+				foreach (var module in info.Shipments)
 				{
 					docBody.AppendChild(CreateParagraph(new WordParagraph
 					{
-						Texts = new List<(string, WordTextProperties)> { ($"{module.GarnitureName}: ", new WordTextProperties { Size = "24", Bold = true })},
+						Texts = new List<(string, WordTextProperties)> { ($"Название: {module.Name}\n \tДата: {module.Date}\n \tЦена: {module.Price}", new WordTextProperties { Size = "24", Bold = true })},
 						TextProperties = new WordTextProperties
 						{
 							Size = "24",
