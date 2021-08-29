@@ -66,7 +66,7 @@ namespace MebelProviderView
                         msg.Body = basis + " c " + dpFrom.SelectedDate.Value.ToShortDateString() +
                         " по " + dpTo.SelectedDate.Value.ToShortDateString();
 
-                        msg.From = new MailAddress("shovkanyanforlab@gmail.com");
+                        msg.From = new MailAddress("labafor8@gmail.com");
                         msg.To.Add(tbEmailAddress.Text);
                         msg.IsBodyHtml = true;
 
@@ -87,7 +87,7 @@ namespace MebelProviderView
 
                         msg.Attachments.Add(attach);
                         client.Host = "smtp.gmail.com";
-                        NetworkCredential basicauthenticationinfo = new NetworkCredential("shovkanyanforlab@gmail.com", "yanshov2001");
+                        NetworkCredential basicauthenticationinfo = new NetworkCredential("labafor8@gmail.com", "123qweQWE");
                         client.Port = int.Parse("587");
                         client.EnableSsl = true;
                         client.UseDefaultCredentials = false;

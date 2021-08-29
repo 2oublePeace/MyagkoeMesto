@@ -24,7 +24,7 @@ namespace MebelBusinessLogic.BusinessLogic
 			paragraph.Format.Alignment = ParagraphAlignment.Center;
 			paragraph.Style = "Normal";
 			var table = document.LastSection.AddTable();
-			List<string> columns = new List<string> { "3cm", "6cm", "3cm", "2cm", "3cm"
+			List<string> columns = new List<string> { "3cm", "6cm", "3cm", "2cm", "5cm"
 };
 			foreach (var elem in columns)
 			{
@@ -33,20 +33,20 @@ namespace MebelBusinessLogic.BusinessLogic
 			CreateRow(new PdfRowParameters
 			{
 				Table = table,
-				Texts = new List<string> { "Дата заказа", "Комплект", "Количество", "Сумма", "Статус" },
+				Texts = new List<string> { "Поставка", "Цена поставки", "Гарнитур", "Дата" },
 				Style = "NormalTitle",
 				ParagraphAlignment = ParagraphAlignment.Center
 			});
-			/*foreach (var supply in info.Orders)
+			foreach (var supply in info.Supplys)
 			{
 				CreateRow(new PdfRowParameters
 				{
 					Table = table,
-					Texts = new List<string> { supply.DateCreate.ToShortDateString(), supply.ModuleName, supply.Count.ToString(), supply.Sum.ToString(), supply.Status.ToString() },
+					Texts = new List<string> { supply.SupplyName.ToString(), supply.SupplyPrice.ToString(), supply.GarnitureName, supply.Date.ToShortDateString()},
 					Style = "Normal",
 					ParagraphAlignment = ParagraphAlignment.Left
 				});
-			}*/
+			}
 			PdfDocumentRenderer renderer = new PdfDocumentRenderer(true, PdfSharp.Pdf.PdfFontEmbedding.Always)
 			{
 				Document = document
