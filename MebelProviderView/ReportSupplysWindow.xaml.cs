@@ -61,7 +61,7 @@ namespace MebelProviderView
                 {
                     if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        string basis = "Отчет по процедурам и поступлениям";
+                        string basis = "Отчет по гарнитурам и поставкам";
                         msg.Subject = basis;
                         msg.Body = basis + " c " + dpFrom.SelectedDate.Value.ToShortDateString() +
                         " по " + dpTo.SelectedDate.Value.ToShortDateString();
