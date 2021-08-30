@@ -10,10 +10,7 @@ using Unity;
 
 namespace MebelProviderView
 {
-	/// <summary>
-	/// Логика взаимодействия для SypplysWindow.xaml
-	/// </summary>
-	public partial class SypplysWindow : Window
+	public partial class SupplysWindow : Window
 	{
         [Dependency]
         public new IUnityContainer Container { get; set; }
@@ -21,7 +18,7 @@ namespace MebelProviderView
         public int Id { set { id = value; } }
         private int? id;
 
-        public SypplysWindow(SupplyLogic logic)
+        public SupplysWindow(SupplyLogic logic)
         {
             InitializeComponent();
             _logic = logic;

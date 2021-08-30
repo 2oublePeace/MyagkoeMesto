@@ -14,9 +14,6 @@ using MebelBusinessLogic.BindnigModels;
 
 namespace MebelProviderView
 {
-    /// <summary>
-    /// Логика взаимодействия для WindowReportProcedureReceipt.xaml
-    /// </summary>
     public partial class ReportSupplysWindow : Window
     {
         public new IUnityContainer Container { get; set; }
@@ -28,6 +25,7 @@ namespace MebelProviderView
             InitializeComponent();
             _logic = logic;
         }
+
         private void ReportViewer_Load(object sender, EventArgs e)
         {
             reportViewer.LocalReport.ReportPath = "../../Report.rdlc";
@@ -63,12 +61,12 @@ namespace MebelProviderView
                 {
                     if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        string basis = "Отчет по процедурам и поступлениям";
+                        string basis = "Отчет по гарнитурам и поставкам";
                         msg.Subject = basis;
                         msg.Body = basis + " c " + dpFrom.SelectedDate.Value.ToShortDateString() +
                         " по " + dpTo.SelectedDate.Value.ToShortDateString();
 
-                        msg.From = new MailAddress("shovkanyanforlab@gmail.com");
+                        msg.From = new MailAddress("labafor8@gmail.com");
                         msg.To.Add(tbEmailAddress.Text);
                         msg.IsBodyHtml = true;
 
@@ -89,7 +87,7 @@ namespace MebelProviderView
 
                         msg.Attachments.Add(attach);
                         client.Host = "smtp.gmail.com";
-                        NetworkCredential basicauthenticationinfo = new NetworkCredential("shovkanyanforlab@gmail.com", "yanshov2001");
+                        NetworkCredential basicauthenticationinfo = new NetworkCredential("labafor8@gmail.com", "123qweQWE");
                         client.Port = int.Parse("587");
                         client.EnableSsl = true;
                         client.UseDefaultCredentials = false;
@@ -132,7 +130,7 @@ namespace MebelProviderView
                     DateFrom = dpFrom.SelectedDate,
                     DateTo = dpTo.SelectedDate
                 });
-                ReportDataSource source = new ReportDataSource("DataSetProcedureReceipt", dataSource);
+                ReportDataSource source = new ReportDataSource("DataSetSupplys", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
             }

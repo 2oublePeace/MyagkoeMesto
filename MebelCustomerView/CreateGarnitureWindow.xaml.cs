@@ -46,11 +46,14 @@ namespace MebelCustomerView
                     if (view != null)
                     {
                         tbModulePrice.Text = view.Price.ToString();
+                        sum = view.Price;
                         tbModuleName.Text = view.Name;
                         garnitureMaterials = view.GarnitureMaterials;
                         garnitureMebels = view.GarnitureMebels;
                         LoadData();
                     }
+
+                    var temp = _logicGarniture.Read(null);
                 }
                 catch (Exception ex)
                 {

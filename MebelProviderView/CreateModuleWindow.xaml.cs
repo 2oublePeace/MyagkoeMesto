@@ -49,6 +49,7 @@ namespace MebelProviderView
                     if (view != null)
                     {
                         tbModulePrice.Text = view.Price.ToString();
+                        sum = view.Price;
                         tbModuleName.Text = view.Name;
                         moduleMaterials = view.ModuleMaterials;
                         moduleMebels = view.ModuleMebels;

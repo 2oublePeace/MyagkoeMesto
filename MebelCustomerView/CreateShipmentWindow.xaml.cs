@@ -5,18 +5,9 @@ using MebelBusinessLogic.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using Unity;
 
 namespace MebelCustomerView
@@ -87,8 +78,8 @@ namespace MebelCustomerView
                     }
 
                     tbShipmentPrice.Text = sum.ToString();
-                    dgReceiptMedicine.ItemsSource = list;
-                    dgReceiptMedicine.Columns[0].Visibility = Visibility.Hidden;
+                    dgShipmentMaterial.ItemsSource = list;
+                    dgShipmentMaterial.Columns[0].Visibility = Visibility.Hidden;
                 }
             }
             catch (Exception ex)
@@ -143,13 +134,13 @@ namespace MebelCustomerView
 
         private void btnDeleteMaterial_Click(object sender, RoutedEventArgs e)
         {
-            if (dgReceiptMedicine.SelectedIndex != -1)
+            if (dgShipmentMaterial.SelectedIndex != -1)
             {
                 MessageBoxResult result = MessageBox.Show("Удалить запись", "Вопрос", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
                 if (result == MessageBoxResult.Yes)
                 {
-                    ModuleMaterialViewModel material = (ModuleMaterialViewModel)dgReceiptMedicine.SelectedCells[0].Item;
+                    ModuleMaterialViewModel material = (ModuleMaterialViewModel)dgShipmentMaterial.SelectedCells[0].Item;
                     try
                     {
                         shipmentGarnitures.Remove(material.Id);

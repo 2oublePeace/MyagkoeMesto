@@ -12,18 +12,19 @@ namespace MebelBusinessLogic.BusinessLogic
 		private readonly IMaterialStorage _materialStorage;
 		private readonly IShipmentStorage _shipmentStorage;
 
-		public ReportShipmentMaterialsLogic(IGarnitureStorage procedureStorage, IMaterialStorage materialStorage, IShipmentStorage shipmentStorage)
+		public ReportShipmentMaterialsLogic(IGarnitureStorage garnitureStorage, IMaterialStorage materialStorage, IShipmentStorage shipmentStorage)
 		{
-			_garnitureStorage = procedureStorage;
+			_garnitureStorage = garnitureStorage;
 			_materialStorage = materialStorage;
 			_shipmentStorage = shipmentStorage;
 		}
 
-		public List<ReportShipmentSupplysViewModel> GetMaterialShipments(List<MaterialViewModel> materials)
+		public List<ReportShipmentMaterialsViewModel> GetMaterialShipments(List<MaterialViewModel> materials)
 		{
 			var garnitures = _garnitureStorage.GetFullList();
 			var shipments = _shipmentStorage.GetFullList();
-			var list = new List<ReportShipmentSupplysViewModel>();
+			var list = new List<ReportShipmentMaterialsViewModel>();
+			var cache = new List<string>();
 
 			foreach (var material in materials)
 			{
@@ -33,14 +34,16 @@ namespace MebelBusinessLogic.BusinessLogic
 					{
 						foreach (var shipment in shipments)
 						{
-							if (shipment.ShipmentGarnitures.ContainsKey(garniture.Id))
+							if (shipment.ShipmentGarnitures.ContainsKey(garniture.Id) && !cache.Contains(shipment.Name))
 							{
-								list.Add(new ReportShipmentSupplysViewModel
+								list.Add(new ReportShipmentMaterialsViewModel
 								{
 									Name = shipment.Name,
 									Date = shipment.Date,
-									Price = shipment.Price
+									Price = shipment.Price,
+									Materials = garniture.GarnitureMaterials
 								});
+								cache.Add(shipment.Name);
 							}
 						}
 					}

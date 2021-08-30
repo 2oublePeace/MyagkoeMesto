@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MebelDatabaseImplement.Migrations
 {
     [DbContext(typeof(MebelDatabase))]
-    [Migration("20210829095638_InitialCreate")]
+    [Migration("20210829205636_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -5,23 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MebelProviderView"
         mc:Ignorable="d"
-        Title="Отчет по лекарствам пациентов" Height="800" Width="800"
+        Title="Отчет по отгрузкам материалов" Height="500" Width="800"
         Loaded="Window_Loaded">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
             <RowDefinition/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="60"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-        <DataGrid Name="DataGridView" Grid.Row="2" Margin="5" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True"/>
-        <Button Name="Add" Grid.Row="0" Content="Добавить материал"  Grid.ColumnSpan="2" Click="Add_Click"/>
-        <Button Name="Delete" Grid.Row="1"  Content="Удалить материал"  Grid.ColumnSpan="2" Click="Delete_Click"/>
-        <Button Name="SaveToWord"  Grid.Row="3"  Content="Сохранить в Word"  Grid.ColumnSpan="2" Click="SaveToWord_Click"  />
-        <Button Name="SaveToExcel"  Grid.Row="4"  Content="Сохранить в Excel"  Grid.ColumnSpan="2" Click="SaveToExcel_Click"  />
-        <Button Name="Cancel"  Grid.Row="5" Content="Отмена"  Grid.ColumnSpan="2" Click="Cancel_Click" />
+        <DataGrid Name="DataGridView" Margin="5" Grid.Row="0" Grid.ColumnSpan="2" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True"/>
+        <StackPanel Grid.Row="0" Grid.Column="2" VerticalAlignment="Center" Height="120">
+            <Button Name="Add" Margin="20" Content="Добавить материал" Click="Add_Click"/>
+            <Button Name="Delete" Margin="20" Content="Удалить материал" Click="Delete_Click"/>
+        </StackPanel>
+        <Button Name="SaveToWord"  Grid.Row="3" Grid.Column="0" Content="Сохранить в Word" Click="SaveToWord_Click"  />
+        <Button Name="SaveToExcel"  Grid.Row="4" Grid.Column="1" Content="Сохранить в Excel" Click="SaveToExcel_Click"  />
+        <Button Name="Cancel"  Grid.Row="5" Grid.Column="2" Content="Отмена" Click="Cancel_Click" />
     </Grid>
 </Window>

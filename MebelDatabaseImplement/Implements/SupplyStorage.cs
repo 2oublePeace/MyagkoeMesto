@@ -47,12 +47,12 @@ namespace MebelDatabaseImplement.Implements
             }
             using (var context = new MebelDatabase())
             {
-                var receipt = context.Supplys
+                var supply = context.Supplys
                     .Include(rec => rec.SupplyMaterials)
                     .ThenInclude(rec => rec.Material)
                     .FirstOrDefault(rec => rec.Id == model.Id);
-                return receipt != null ?
-                CreateModel(receipt) : null;
+                return supply != null ?
+                CreateModel(supply) : null;
             }
         }
 
@@ -85,14 +85,14 @@ namespace MebelDatabaseImplement.Implements
                 {
                     try
                     {
-                        var receipt = context.Supplys.FirstOrDefault(rec => rec.Id == model.Id);
+                        var supply = context.Supplys.FirstOrDefault(rec => rec.Id == model.Id);
 
-                        if (receipt == null)
+                        if (supply == null)
                         {
                             throw new Exception("Поставка не найдена");
                         }
 
-                        CreateModel(model, receipt, context);
+                        CreateModel(model, supply, context);
                         context.SaveChanges();
 
                         transaction.Commit();
@@ -123,15 +123,15 @@ namespace MebelDatabaseImplement.Implements
             }
         }
 
-        private Supply CreateModel(SupplyBindingModel model, Supply receipt, MebelDatabase context)
+        private Supply CreateModel(SupplyBindingModel model, Supply supply, MebelDatabase context)
         {
-            receipt.Date = model.Date;
-            receipt.Name = model.Name;
-            receipt.Price = model.Price;
+            supply.Date = model.Date;
+            supply.Name = model.Name;
+            supply.Price = model.Price;
 
-            if (receipt.Id == 0)
+            if (supply.Id == 0)
             {
-                context.Supplys.Add(receipt);
+                context.Supplys.Add(supply);
                 context.SaveChanges();
             }
 
@@ -150,13 +150,13 @@ namespace MebelDatabaseImplement.Implements
             {
                 context.SupplyMaterials.Add(new SupplyMaterial
                 {
-                    SupplyId = receipt.Id,
+                    SupplyId = supply.Id,
                     MaterialId = supplyMaterial.Key,
                     Count = supplyMaterial.Value.Item2
                 });
                 context.SaveChanges();
             }
-            return receipt;
+            return supply;
         }
 
         private SupplyViewModel CreateModel(Supply supply)
