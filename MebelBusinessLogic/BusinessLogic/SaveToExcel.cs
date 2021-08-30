@@ -57,7 +57,7 @@ namespace MebelBusinessLogic.BusinessLogics
 					CellToName = "C1"
 				});
 				uint rowIndex = 2;
-				foreach (var receipt in info.Shipments)
+				foreach (var shipment in info.Shipments)
 				{
 					InsertCellInWorksheet(new ExcelCellParameters
 					{
@@ -65,17 +65,43 @@ namespace MebelBusinessLogic.BusinessLogics
 						ShareStringPart = shareStringPart,
 						ColumnName = "A",
 						RowIndex = rowIndex,
-						Text = "На процедуру " + receipt.Name,
+						Text = shipment.Name,
 						StyleIndex = 0U
 					});
 
-					InsertCellInWorksheet(new ExcelCellParameters
+					rowIndex++;
+
+					foreach (var material in shipment.Materials)
+					{
+						InsertCellInWorksheet(new ExcelCellParameters
+						{
+							Worksheet = worksheetPart.Worksheet,
+							ShareStringPart = shareStringPart,
+							ColumnName = "B",
+							RowIndex = rowIndex,
+							Text = material.Value.Item1,
+							StyleIndex = 1U
+						});
+
+						InsertCellInWorksheet(new ExcelCellParameters
+						{
+							Worksheet = worksheetPart.Worksheet,
+							ShareStringPart = shareStringPart,
+							ColumnName = "C",
+							RowIndex = rowIndex,
+							Text = material.Value.Item2.ToString(),
+							StyleIndex = 1U
+						});
+						rowIndex++;
+					}
+
+						InsertCellInWorksheet(new ExcelCellParameters
 					{
 						Worksheet = worksheetPart.Worksheet,
 						ShareStringPart = shareStringPart,
 						ColumnName = "С",
 						RowIndex = rowIndex,
-						Text = " были доставлены лекарства " + receipt.Date + " числа.",
+						Text = " Материалы были доставлены " + shipment.Date + " числа.",
 						StyleIndex = 0U
 					});
 					rowIndex++;

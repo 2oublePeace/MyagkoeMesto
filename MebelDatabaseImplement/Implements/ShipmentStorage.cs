@@ -47,12 +47,12 @@ namespace MebelDatabaseImplement.Implements
             }
             using (var context = new MebelDatabase())
             {
-                var receipt = context.Shipments
+                var shipment = context.Shipments
                     .Include(rec => rec.ShipmentGarnitures)
                     .ThenInclude(rec => rec.Garniture)
                     .FirstOrDefault(rec => rec.Id == model.Id);
-                return receipt != null ?
-                CreateModel(receipt) : null;
+                return shipment != null ?
+                CreateModel(shipment) : null;
             }
         }
 
@@ -85,14 +85,14 @@ namespace MebelDatabaseImplement.Implements
                 {
                     try
                     {
-                        var receipt = context.Shipments.FirstOrDefault(rec => rec.Id == model.Id);
+                        var shipment = context.Shipments.FirstOrDefault(rec => rec.Id == model.Id);
 
-                        if (receipt == null)
+                        if (shipment == null)
                         {
                             throw new Exception("Поставка не найдена");
                         }
 
-                        CreateModel(model, receipt, context);
+                        CreateModel(model, shipment, context);
                         context.SaveChanges();
 
                         transaction.Commit();
@@ -123,15 +123,15 @@ namespace MebelDatabaseImplement.Implements
             }
         }
 
-        private Shipment CreateModel(ShipmentBindingModel model, Shipment receipt, MebelDatabase context)
+        private Shipment CreateModel(ShipmentBindingModel model, Shipment shipment, MebelDatabase context)
         {
-            receipt.Date = model.Date;
-            receipt.Name = model.Name;
-            receipt.Price = model.Price;
+            shipment.Date = model.Date;
+            shipment.Name = model.Name;
+            shipment.Price = model.Price;
 
-            if (receipt.Id == 0)
+            if (shipment.Id == 0)
             {
-                context.Shipments.Add(receipt);
+                context.Shipments.Add(shipment);
                 context.SaveChanges();
             }
 
@@ -150,13 +150,13 @@ namespace MebelDatabaseImplement.Implements
             {
                 context.ShipmentGarnitures.Add(new ShipmentGarniture
                 {
-                    ShipmentId = receipt.Id,
+                    ShipmentId = shipment.Id,
                     GarnitureId = shipmentGarniture.Key,
                     Count = shipmentGarniture.Value.Item2
                 });
                 context.SaveChanges();
             }
-            return receipt;
+            return shipment;
         }
 
         private ShipmentViewModel CreateModel(Shipment shipment)

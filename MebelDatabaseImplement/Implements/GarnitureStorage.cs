@@ -17,7 +17,9 @@ namespace MebelDatabaseImplement.Implements
             {
                 return context.Garniture
                     .Include(rec => rec.GarnitureMaterial)
+                    .ThenInclude(rec => rec.Material)
                     .Include(rec => rec.GarnitureMebel)
+                    .ThenInclude(rec => rec.Mebel)
                     .Select(CreateModel)
                     .ToList();
             }

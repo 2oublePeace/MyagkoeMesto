@@ -15,7 +15,7 @@
             <MenuItem Header="Справочники">
                 <MenuItem Header="Материалы" Click="btnMaterials_Click"></MenuItem>
                 <MenuItem Header="Модули" Click="btnModules_Click"></MenuItem>
-                <MenuItem Header="Поставки" Click="btnSypplys_Click"></MenuItem>
+                <MenuItem Header="Поставки" Click="btnSupplys_Click"></MenuItem>
                 <Separator />
                 <MenuItem Header="Exit" ></MenuItem>
             </MenuItem>

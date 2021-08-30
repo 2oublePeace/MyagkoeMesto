@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MebelCustomerView"
         mc:Ignorable="d"
-        Title="Создание материала" Height="563.115" Width="857.203"
+        Title="Создание отгрузки" Height="563.115" Width="857.203"
         Loaded="Window_loaded">
     <Window.Resources>
         <Style TargetType="Button">
@@ -39,10 +39,10 @@
         <Label Content="Цена: " Grid.Column="0" Grid.Row="1"/>
         <TextBox Name="tbShipmentPrice" Grid.Column="1" Grid.Row="1" Margin="15" IsReadOnly="True"/>
 
-        <DataGrid Name="dgReceiptMedicine" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True" />
+        <DataGrid Name="dgShipmentMaterial" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Margin="5" AutoGenerateColumns="True" BorderBrush="Black" AutoGeneratingColumn="DataGrid_AutoGeneratingColumn" ColumnWidth="*" IsReadOnly="True" />
         <StackPanel Grid.Row="2" Grid.Column="2" VerticalAlignment="Center" Height="120">
-            <Button Name="AddMedicine" Margin="20" Content="Добавить лекарство" Click="btnAddMaterial_Click"/>
-            <Button Name="btnDeleteMedicine" Margin="20" Content="Удалить лекарство" Click="btnDeleteMaterial_Click"/>
+            <Button Name="btnAddMaterial" Margin="20" Content="Добавить материал" Click="btnAddMaterial_Click"/>
+            <Button Name="btnDeleteMaterial" Margin="20" Content="Удалить материал" Click="btnDeleteMaterial_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Grid.Column="3" VerticalAlignment="Bottom" HorizontalAlignment="Right" Orientation="Horizontal" Height="40">

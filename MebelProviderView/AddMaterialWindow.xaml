@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MebelProviderView"
         mc:Ignorable="d"
-        Title="Добавление лекарства" Height="180" Width="500"
+        Title="Добавление материала" Height="180" Width="500"
         Loaded="Window_loaded">
     <Window.Resources>
         <Style TargetType="Button">

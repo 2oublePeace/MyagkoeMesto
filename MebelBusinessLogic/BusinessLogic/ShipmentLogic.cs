@@ -42,11 +42,11 @@ namespace MebelBusinessLogic.BusinessLogic
         }
         public void Delete(ShipmentBindingModel model)
         {
-            var receipt = _supplyStorage.GetElement(new ShipmentBindingModel
+            var shipment = _supplyStorage.GetElement(new ShipmentBindingModel
             {
                 Id = model.Id
             });
-            if (receipt == null)
+            if (shipment == null)
             {
                 throw new Exception("Поступление не найдено");
             }

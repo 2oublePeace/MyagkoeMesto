@@ -53,9 +53,9 @@ namespace MebelProviderView
             window.Show();
         }
 
-        private void btnSypplys_Click(object sender, RoutedEventArgs e)
+        private void btnSupplys_Click(object sender, RoutedEventArgs e)
         {
-            var window = Container.Resolve<SypplysWindow>();
+            var window = Container.Resolve<SupplysWindow>();
             window.Show();
         }
 
