@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MebelBusinessLogic.ViewModels
 {
-	public class ReportShipmentMaterialsViewModel
+	public class ReportSupplyGarnituresViewModel
 	{
         int Id { get; set; }
         [DisplayName("Название")]
@@ -16,4 +16,3 @@ namespace MebelBusinessLogic.ViewModels
         public DateTime Date { get; set; }
     }
 }
-

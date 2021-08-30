@@ -9,6 +9,6 @@ namespace MebelBusinessLogic.HelperModels
 	{
 		public string FileName { get; set; }
 		public string Title { get; set; }
-		public List<ReportShipmentMaterialsViewModel> Shipments { get; set; }
+		public List<ReportShipmentSupplysViewModel> Shipments { get; set; }
 	}
 }

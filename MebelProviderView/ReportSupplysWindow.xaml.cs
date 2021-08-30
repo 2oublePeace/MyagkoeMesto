@@ -52,8 +52,7 @@ namespace MebelProviderView
             }
             if (!Regex.IsMatch(tbEmailAddress.Text, @"^[A-Za-z0-9]+(?:[._%+-])?[A-Za-z0-9._-]+[A-Za-z0-9]@[A-Za-z0-9]+(?:[.-])?[A-Za-z0-9._-]+\.[A-Za-z]{2,6}$"))
             {
-                MessageBox.Show("Неверный формат Email адреса",
-               "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Неверный формат Email адреса", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             MailMessage msg = new MailMessage();
@@ -98,15 +97,13 @@ namespace MebelProviderView
                         client.DeliveryMethod = SmtpDeliveryMethod.Network;
                         client.Send(msg);
 
-                        MessageBox.Show("Сообщение отправлено", "Успех",
-                            MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Сообщение отправлено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-                MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -114,20 +111,17 @@ namespace MebelProviderView
         {
             if (dpFrom.SelectedDate == null)
             {
-                MessageBox.Show("Выберите дату начала",
-               "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Выберите дату начала", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (dpTo.SelectedDate == null)
             {
-                MessageBox.Show("Выберите дату окончания",
-               "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Выберите дату окончания", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             if (dpFrom.SelectedDate >= dpTo.SelectedDate)
             {
-                MessageBox.Show("Дата начала должна быть меньше даты окончания",
-               "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Дата начала должна быть меньше даты окончания", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
             try
@@ -144,10 +138,8 @@ namespace MebelProviderView
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-               MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
     }
 }
