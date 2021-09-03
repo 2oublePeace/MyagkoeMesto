@@ -5,10 +5,10 @@ using System.Text;
 
 namespace MebelBusinessLogic.HelperModels
 {
-	class WordProviderInfo
+	public class WordProviderInfo
 	{
 		public string FileName { get; set; }
 		public string Title { get; set; }
-		public List<ReportShipmentSupplysViewModel> Shipments { get; set; }
+		public List<ReportShipmentMaterialsViewModel> Shipments { get; set; }
 	}
 }

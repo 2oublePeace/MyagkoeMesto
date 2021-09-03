@@ -33,7 +33,7 @@ namespace MebelBusinessLogic.BusinessLogics
 				{
 					docBody.AppendChild(CreateParagraph(new WordParagraph
 					{
-						Texts = new List<(string, WordTextProperties)> { ($"Название: {module.Name}{System.Environment.NewLine} \tДата: {module.Date}\n \tЦена: {module.Price}", new WordTextProperties { Size = "24", Bold = true })},
+						Texts = new List<(string, WordTextProperties)> { ($"Название: {module.Name}\n \tДата: {module.Date}\n \tЦена: {module.Price}", new WordTextProperties { Size = "24", Bold = true })},
 						TextProperties = new WordTextProperties
 						{
 							Size = "24",
@@ -45,6 +45,41 @@ namespace MebelBusinessLogic.BusinessLogics
 				wordDocument.MainDocumentPart.Document.Save();
 			}
 		}
+
+		public static void CreateDoc(WordCustomerInfo info)
+		{
+			using (WordprocessingDocument wordDocument = WordprocessingDocument.Create(info.FileName, WordprocessingDocumentType.Document))
+			{
+				MainDocumentPart mainPart = wordDocument.AddMainDocumentPart(); mainPart.Document = new Document();
+				Body docBody = mainPart.Document.AppendChild(new Body());
+
+				docBody.AppendChild(CreateParagraph(new WordParagraph
+				{
+					Texts = new List<(string, WordTextProperties)> { (info.Title, new WordTextProperties { Bold = true, Size = "24", }) },
+					TextProperties = new WordTextProperties
+					{
+						Size = "24",
+						JustificationValues = JustificationValues.Center
+					}
+				}));
+
+				foreach (var module in info.Supplys)
+				{
+					docBody.AppendChild(CreateParagraph(new WordParagraph
+					{
+						Texts = new List<(string, WordTextProperties)> { ($"Название: {module.Name}\n \tДата: {module.Date}\n \tЦена: {module.Price}", new WordTextProperties { Size = "24", Bold = true }) },
+						TextProperties = new WordTextProperties
+						{
+							Size = "24",
+							JustificationValues = JustificationValues.Both
+						}
+					}));
+				}
+				docBody.AppendChild(CreateSectionProperties());
+				wordDocument.MainDocumentPart.Document.Save();
+			}
+		}
+
 		/// <summary>
 		/// Настройки страницы
 		/// </summary>

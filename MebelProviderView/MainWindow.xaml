@@ -20,7 +20,7 @@
                 <MenuItem Header="Exit" ></MenuItem>
             </MenuItem>
             <MenuItem Header="Отчеты">
-                <MenuItem Header="Отгрузка по материалам" Click="btnReportShipmentList_Click"></MenuItem>
+                <MenuItem Header="Отгрузки по материалам" Click="btnReportShipmentList_Click"></MenuItem>
                 <MenuItem Header="Поставки" Click="btnReportSupplys_Click"></MenuItem>
             </MenuItem>
         </Menu>

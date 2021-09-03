@@ -19,11 +19,12 @@ namespace MebelBusinessLogic.BusinessLogic
 			_shipmentStorage = shipmentStorage;
 		}
 
-		public List<ReportShipmentSupplysViewModel> GetMaterialShipments(List<MaterialViewModel> materials)
+		public List<ReportShipmentMaterialsViewModel> GetMaterialShipments(List<MaterialViewModel> materials)
 		{
 			var garnitures = _garnitureStorage.GetFullList();
 			var shipments = _shipmentStorage.GetFullList();
 			var list = new List<ReportShipmentMaterialsViewModel>();
+			var cache = new List<string>();
 
 			foreach (var material in materials)
 			{
@@ -35,7 +36,7 @@ namespace MebelBusinessLogic.BusinessLogic
 						{
 							if (shipment.ShipmentGarnitures.ContainsKey(garniture.Id) && !cache.Contains(shipment.Name))
 							{
-								list.Add(new ReportShipmentSupplysViewModel
+								list.Add(new ReportShipmentMaterialsViewModel
 								{
 									Name = shipment.Name,
 									Date = shipment.Date,

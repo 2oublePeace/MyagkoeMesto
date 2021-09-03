@@ -11,15 +11,18 @@ using System.Text.RegularExpressions;
 using MebelBusinessLogic.BusinessLogic;
 using MebelBusinessLogic.BindnigModels;
 
-namespace MebelProviderView
+namespace MebelCustomerView
 {
-    public partial class ReportSupplysWindow : Window
-    {
+	/// <summary>
+	/// Логика взаимодействия для ReportShipmentsWindow.xaml
+	/// </summary>
+	public partial class ReportShipmentsWindow : Window
+	{
         public new IUnityContainer Container { get; set; }
-        ReportSupplyLogic _logic;
-        public int _providerId { get; set; }
+        ReportShipmentLogic _logic;
+        public int _customerId { get; set; }
 
-        public ReportSupplysWindow(ReportSupplyLogic logic)
+        public ReportShipmentsWindow(ReportShipmentLogic logic)
         {
             InitializeComponent();
             _logic = logic;
@@ -60,7 +63,7 @@ namespace MebelProviderView
                 {
                     if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                     {
-                        string basis = "Отчет по гарнитурам и поставкам";
+                        string basis = "Отчет по отгрузкам и поставкам";
                         msg.Subject = basis;
                         msg.Body = basis + " c " + dpFrom.SelectedDate.Value.ToShortDateString() +
                         " по " + dpTo.SelectedDate.Value.ToShortDateString();
@@ -69,9 +72,9 @@ namespace MebelProviderView
                         msg.To.Add(tbEmailAddress.Text);
                         msg.IsBodyHtml = true;
 
-                        _logic.SaveToPdfFile(new ReportProviderBindingModel
+                        _logic.SaveToPdfFile(new ReportCustomerBindingModel
                         {
-                            ProviderId = _providerId,
+                            CustomerId = _customerId,
                             FileName = dialog.FileName,
                             DateFrom = dpFrom.SelectedDate,
                             DateTo = dpTo.SelectedDate
@@ -123,13 +126,13 @@ namespace MebelProviderView
             }
             try
             {
-                var dataSource = _logic.GetGarnitureSupply(new ReportProviderBindingModel
+                var dataSource = _logic.GetShipmentSupply(new ReportCustomerBindingModel
                 {
-                    ProviderId = _providerId,
+                    CustomerId = _customerId,
                     DateFrom = dpFrom.SelectedDate,
                     DateTo = dpTo.SelectedDate
                 });
-                ReportDataSource source = new ReportDataSource("DataSetSupplys", dataSource);
+                ReportDataSource source = new ReportDataSource("DataSet", dataSource);
                 reportViewer.LocalReport.DataSources.Add(source);
                 reportViewer.RefreshReport();
             }

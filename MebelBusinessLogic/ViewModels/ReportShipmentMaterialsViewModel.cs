@@ -5,7 +5,7 @@ using System.Text;
 
 namespace MebelBusinessLogic.ViewModels
 {
-	public class ReportShipmentSupplysViewModel
+	public class ReportShipmentMaterialsViewModel
 	{
         int Id { get; set; }
         [DisplayName("Название")]

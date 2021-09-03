@@ -12,6 +12,8 @@ namespace MebelBusinessLogic.ViewModels
         public string Name { get; set; }
         [DisplayName("Цена")]
         public decimal Price { get; set; }
+        [DisplayName("Гарнитуры")]
+        public Dictionary<int, (string, int)> Garnitures { get; set; }
         [DisplayName("Дата")]
         public DateTime Date { get; set; }
     }

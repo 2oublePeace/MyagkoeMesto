@@ -1,4 +1,4 @@
-﻿using MebelBusinessLogic.BindingModels;
+﻿using MebelBusinessLogic.BindnigModels;
 using MebelBusinessLogic.BusinessLogic;
 using MebelBusinessLogic.BusinessLogics;
 using MebelBusinessLogic.ViewModels;
@@ -11,24 +11,24 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using Unity;
 
-namespace MebelProviderView
+namespace MebelCustomerView
 {
 	/// <summary>
-	/// Логика взаимодействия для ShipmentListWindow.xaml
+	/// Логика взаимодействия для SupplyListView.xaml
 	/// </summary>
-	public partial class ShipmentListWindow : Window
+	public partial class SupplyListWindow : Window
 	{
 		[Dependency]
 		public new IUnityContainer Container { get; set; }
 
-		MaterialLogic logicM;
-		ReportShipmentMaterialsLogic logicP;
-		List<MaterialViewModel> list = new List<MaterialViewModel>();
+		GarnitureLogic logicGarnitures;
+		ReportSupplyGarnituresLogic logicP;
+		List<GarnitureViewModel> list = new List<GarnitureViewModel>();
 
-	    public ShipmentListWindow(ReportShipmentMaterialsLogic _logicP, MaterialLogic _logicM)
+		public SupplyListWindow(ReportSupplyGarnituresLogic _logicP, GarnitureLogic _logicM)
 		{
 			InitializeComponent();
-			logicM = _logicM;
+			logicGarnitures = _logicM;
 			logicP = _logicP;
 		}
 
@@ -44,8 +44,7 @@ namespace MebelProviderView
 			}
 			catch (Exception ex)
 			{
-				System.Windows.MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
-			   MessageBoxImage.Error);
+				System.Windows.MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 			}
 		}
 
@@ -56,13 +55,13 @@ namespace MebelProviderView
 
 		private void Add_Click(object sender, RoutedEventArgs e)
 		{
-			var window = Container.Resolve<AddMaterialWindow>();
+			var window = Container.Resolve<AddGarnitureWindow>();
 			window.ShowDialog();
 			if (window.DialogResult == true)
 			{
-				if (!list.Contains(logicM.Read(new MaterialBindingModel { Id = window.Id })[0]))
+				if (!list.Contains(logicGarnitures.Read(new GarnitureBindingModel { Id = window.Id })[0]))
 				{
-					list.Add(logicM.Read(new MaterialBindingModel { Id = window.Id })[0]);
+					list.Add(logicGarnitures.Read(new GarnitureBindingModel { Id = window.Id })[0]);
 					LoadData();
 				}
 			}
@@ -76,7 +75,7 @@ namespace MebelProviderView
 
 				if (result == MessageBoxResult.Yes)
 				{
-					MaterialViewModel material = (MaterialViewModel)DataGridView.SelectedCells[0].Item;
+					GarnitureViewModel material = (GarnitureViewModel)DataGridView.SelectedCells[0].Item;
 					try
 					{
 						list.Remove(material);
@@ -99,7 +98,8 @@ namespace MebelProviderView
 					try
 					{
 						logicP.SaveToWordFile(dialog.FileName, list);
-						System.Windows.MessageBox.Show("Выполнено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+						System.Windows.MessageBox.Show("Выполнено", "Успех", MessageBoxButton.OK,
+							MessageBoxImage.Information);
 					}
 					catch (Exception ex)
 					{
@@ -118,11 +118,13 @@ namespace MebelProviderView
 					try
 					{
 						logicP.SaveToExcelFile(dialog.FileName, list);
-						System.Windows.MessageBox.Show("Выполнено", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+						System.Windows.MessageBox.Show("Выполнено", "Успех", MessageBoxButton.OK,
+						MessageBoxImage.Information);
 					}
 					catch (Exception ex)
 					{
-						System.Windows.MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+						System.Windows.MessageBox.Show(ex.Message, "Ошибка", MessageBoxButton.OK,
+					   MessageBoxImage.Error);
 					}
 				}
 			}
@@ -132,6 +134,7 @@ namespace MebelProviderView
 		{
 			Close();
 		}
+
 
 		private void DataGrid_AutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
 		{

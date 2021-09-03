@@ -3,9 +3,6 @@ using Unity;
 
 namespace MebelCustomerView
 {
-	/// <summary>
-	/// Логика взаимодействия для MainWindow.xaml
-	/// </summary>
 	public partial class MainWindow : Window
 	{
         [Dependency]
@@ -32,6 +29,18 @@ namespace MebelCustomerView
         private void btnShipment_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<ShipmentsWindow>();
+            window.Show();
+        }
+
+        private void btnReportShipments_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<ReportShipmentsWindow>();
+            window.Show();
+        }
+
+        private void btnReportSupplyList_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<SupplyListWindow>();
             window.Show();
         }
 

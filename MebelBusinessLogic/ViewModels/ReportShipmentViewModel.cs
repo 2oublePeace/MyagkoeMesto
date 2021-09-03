@@ -10,7 +10,11 @@ namespace MebelBusinessLogic.ViewModels
 		int Id { get; set; }
 		[DisplayName("Поставка")]
 		public string SupplyName { get; set; }
+		[DisplayName("Отгрузка")]
+		public string ShipmentName { get; set; }
 		[DisplayName("Дата отгрузки")]
-		public DateTime Date { get; set; }
+		public DateTime ShipmentDate { get; set; }
+		[DisplayName("Дата поставки")]
+		public DateTime SupplyDate { get; set; }
 	}
 }

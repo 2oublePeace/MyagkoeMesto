@@ -7,7 +7,7 @@ namespace MebelBusinessLogic.BindnigModels
 	public class ReportCustomerBindingModel
 	{
 		public string FileName { get; set; }
-		public int SupplierId { get; set; }
+		public int CustomerId { get; set; }
 		public DateTime? DateFrom { get; set; }
 		public DateTime? DateTo { get; set; }
 	}

@@ -71,6 +71,46 @@ namespace MebelBusinessLogic.BusinessLogics
 
 					rowIndex++;
 
+					InsertCellInWorksheet(new ExcelCellParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						ShareStringPart = shareStringPart,
+						ColumnName = "B",
+						RowIndex = rowIndex,
+						Text = "Материалы",
+						StyleIndex = 1U
+					});
+					MergeCells(new ExcelMergeParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						CellFromName = $"B{rowIndex}",
+						CellToName = $"C{rowIndex}"
+					});
+
+					rowIndex++;
+
+					InsertCellInWorksheet(new ExcelCellParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						ShareStringPart = shareStringPart,
+						ColumnName = "B",
+						RowIndex = rowIndex,
+						Text = "Название",
+						StyleIndex = 1U
+					});
+
+					InsertCellInWorksheet(new ExcelCellParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						ShareStringPart = shareStringPart,
+						ColumnName = "C",
+						RowIndex = rowIndex,
+						Text = "Количество",
+						StyleIndex = 1U
+					});
+
+					rowIndex++;
+
 					foreach (var material in shipment.Materials)
 					{
 						InsertCellInWorksheet(new ExcelCellParameters
@@ -102,6 +142,143 @@ namespace MebelBusinessLogic.BusinessLogics
 						ColumnName = "С",
 						RowIndex = rowIndex,
 						Text = " Материалы были доставлены " + shipment.Date + " числа.",
+						StyleIndex = 0U
+					});
+					rowIndex++;
+				}
+				workbookpart.Workbook.Save();
+			}
+		}
+
+		public static void CreateDoc(ExcelCustomerInfo info)
+		{
+			using (SpreadsheetDocument spreadsheetDocument = SpreadsheetDocument.Create(info.FileName, SpreadsheetDocumentType.Workbook))
+			{
+				WorkbookPart workbookpart = spreadsheetDocument.AddWorkbookPart();
+				workbookpart.Workbook = new Workbook();
+				CreateStyles(workbookpart);
+				// Получаем/создаем хранилище текстов для книги
+				SharedStringTablePart shareStringPart = spreadsheetDocument.WorkbookPart.GetPartsOfType<SharedStringTablePart>().Count() > 0
+				? spreadsheetDocument.WorkbookPart.GetPartsOfType<SharedStringTablePart>().First()
+				: spreadsheetDocument.WorkbookPart.AddNewPart<SharedStringTablePart>();
+				// Создаем SharedStringTable, если его нет
+				if (shareStringPart.SharedStringTable == null)
+				{
+					shareStringPart.SharedStringTable = new SharedStringTable();
+				}
+				// Создаем лист в книгу
+				WorksheetPart worksheetPart = workbookpart.AddNewPart<WorksheetPart>();
+				worksheetPart.Worksheet = new Worksheet(new SheetData());
+				// Добавляем лист в книгу
+				Sheets sheets = spreadsheetDocument.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+				Sheet sheet = new Sheet()
+				{
+					Id = spreadsheetDocument.WorkbookPart.GetIdOfPart(worksheetPart),
+					SheetId = 1,
+					Name = "Лист"
+				};
+				sheets.Append(sheet);
+				InsertCellInWorksheet(new ExcelCellParameters
+				{
+					Worksheet = worksheetPart.Worksheet,
+					ShareStringPart = shareStringPart,
+					ColumnName = "A",
+					RowIndex = 1,
+					Text = info.Title,
+					StyleIndex = 2U
+				});
+				MergeCells(new ExcelMergeParameters
+				{
+					Worksheet = worksheetPart.Worksheet,
+					CellFromName = "A1",
+					CellToName = "C1"
+				});
+				uint rowIndex = 2;
+				foreach (var supply in info.Supplys)
+				{
+					InsertCellInWorksheet(new ExcelCellParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						ShareStringPart = shareStringPart,
+						ColumnName = "A",
+						RowIndex = rowIndex,
+						Text = supply.Name,
+						StyleIndex = 0U
+					});
+
+					rowIndex++;
+
+					InsertCellInWorksheet(new ExcelCellParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						ShareStringPart = shareStringPart,
+						ColumnName = "B",
+						RowIndex = rowIndex,
+						Text = "Гарнитуры",
+						StyleIndex = 1U
+					});
+					MergeCells(new ExcelMergeParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						CellFromName = $"B{rowIndex}",
+						CellToName = $"C{rowIndex}"
+					});
+
+					rowIndex++;
+
+					InsertCellInWorksheet(new ExcelCellParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						ShareStringPart = shareStringPart,
+						ColumnName = "B",
+						RowIndex = rowIndex,
+						Text = "Название",
+						StyleIndex = 1U
+					});
+
+					InsertCellInWorksheet(new ExcelCellParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						ShareStringPart = shareStringPart,
+						ColumnName = "C",
+						RowIndex = rowIndex,
+						Text = "Цена",
+						StyleIndex = 1U
+					});
+
+					rowIndex++;
+
+					foreach (var garniture in supply.Garnitures)
+					{
+						InsertCellInWorksheet(new ExcelCellParameters
+						{
+							Worksheet = worksheetPart.Worksheet,
+							ShareStringPart = shareStringPart,
+							ColumnName = "B",
+							RowIndex = rowIndex,
+							Text = garniture.Value.Item1,
+							StyleIndex = 1U
+						});
+
+						InsertCellInWorksheet(new ExcelCellParameters
+						{
+							Worksheet = worksheetPart.Worksheet,
+							ShareStringPart = shareStringPart,
+							ColumnName = "C",
+							RowIndex = rowIndex,
+							Text = garniture.Value.Item2.ToString(),
+							StyleIndex = 1U
+						});
+						rowIndex++;
+					}
+
+					InsertCellInWorksheet(new ExcelCellParameters
+					{
+						Worksheet = worksheetPart.Worksheet,
+						ShareStringPart = shareStringPart,
+						ColumnName = "С",
+						RowIndex = rowIndex,
+						Text = " Материалы для гарнитуров были поставлены " + supply.Date + " числа.",
 						StyleIndex = 0U
 					});
 					rowIndex++;
