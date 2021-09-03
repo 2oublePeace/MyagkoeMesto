@@ -64,7 +64,7 @@ namespace MebelDatabaseImplement.Implements
                 var element = context.Providers.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
-                    throw new Exception("Заказчик не найден");
+                    throw new Exception("Поставщик не найден");
                 }
                 CreateModel(model, element);
                 context.SaveChanges();
@@ -83,7 +83,7 @@ namespace MebelDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Заказчик не найден");
+                    throw new Exception("Поставщик не найден");
                 }
             }
         }

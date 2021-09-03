@@ -89,7 +89,7 @@ namespace MebelDatabaseImplement.Implements
 
                         if (shipment == null)
                         {
-                            throw new Exception("Поставка не найдена");
+                            throw new Exception("Отгрузка не найдена");
                         }
 
                         CreateModel(model, shipment, context);
@@ -118,7 +118,7 @@ namespace MebelDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Поступление не найдено");
+                    throw new Exception("Отгрузка не найдено");
                 }
             }
         }

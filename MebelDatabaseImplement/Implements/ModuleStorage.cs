@@ -92,7 +92,7 @@ namespace MebelDatabaseImplement.Implements
 
                         if (module == null)
                         {
-                            throw new Exception("Рецепт не найден");
+                            throw new Exception("Модуль не найден");
                         }
 
                         CreateModel(model, module, context);
@@ -116,7 +116,7 @@ namespace MebelDatabaseImplement.Implements
 
                 if (module == null)
                 {
-                    throw new Exception("Рецепт не найден");
+                    throw new Exception("Модуль не найден");
                 }
 
                 context.Modules.Remove(module);

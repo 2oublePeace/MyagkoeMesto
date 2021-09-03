@@ -78,7 +78,7 @@ namespace MebelDatabaseImplement.Implements
                 var element = context.Mebel.FirstOrDefault(rec => rec.Id == model.Id);
                 if (element == null)
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Мебель не найдена");
                 }
                 CreateModel(model, element);
                 context.SaveChanges();
@@ -96,7 +96,7 @@ namespace MebelDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Мебель не найдена");
                 }
             }
         }

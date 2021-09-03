@@ -80,7 +80,7 @@ namespace MebelDatabaseImplement.Implements
                model.Id);
                 if (element == null)
             {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Материал не найден");
                 }
                 CreateModel(model, element);
                 context.SaveChanges();
@@ -99,7 +99,7 @@ namespace MebelDatabaseImplement.Implements
                 }
                 else
                 {
-                    throw new Exception("Элемент не найден");
+                    throw new Exception("Материал не найден");
                 }
             }
         }
