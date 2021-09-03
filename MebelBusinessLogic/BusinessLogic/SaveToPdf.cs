@@ -68,8 +68,7 @@ namespace MebelBusinessLogic.BusinessLogic
 			paragraph.Format.Alignment = ParagraphAlignment.Center;
 			paragraph.Style = "Normal";
 			var table = document.LastSection.AddTable();
-			List<string> columns = new List<string> { "3cm", "6cm", "3cm", "2cm", "5cm"
-};
+			List<string> columns = new List<string> { "3cm", "6cm", "3cm", "3cm" };
 			foreach (var elem in columns)
 			{
 				table.AddColumn(elem);
