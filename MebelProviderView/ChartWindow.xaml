@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:MebelProviderView"
         xmlns:Wpf="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
         mc:Ignorable="d"
-        Title="Статистика отгрузок" Height="450" Width="800">
+        Title="Статистика поставок" Height="450" Width="800">
     <Window.Resources>
         <Style TargetType="Button">
             <Setter Property="Margin" Value="5"/>
