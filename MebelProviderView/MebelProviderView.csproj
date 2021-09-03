@@ -241,6 +241,9 @@
     <Compile Include="AddMebelWindow.xaml.cs">
       <DependentUpon>AddMebelWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChartWindow.xaml.cs">
+      <DependentUpon>ChartWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CreateMaterialWindow.xaml.cs">
       <DependentUpon>CreateMaterialWindow.xaml</DependentUpon>
     </Compile>
@@ -274,6 +277,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="AddMebelWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ChartWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

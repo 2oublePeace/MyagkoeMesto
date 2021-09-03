@@ -44,6 +44,12 @@ namespace MebelCustomerView
             window.Show();
         }
 
+        private void btnChart_Click(object sender, RoutedEventArgs e)
+        {
+            var window = Container.Resolve<ChartWindow>();
+            window.Show();
+        }
+
         private void btnExit_Click(object sender, RoutedEventArgs e)
         {
             var window = Container.Resolve<WelcomeWindow>();
